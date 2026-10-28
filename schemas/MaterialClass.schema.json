@@ -23,11 +23,18 @@
         "S",
         "H"
       ]
+    },
+    "concept_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^https://example\\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$"
     }
   },
   "required": [
     "id",
     "name",
-    "iso_code"
+    "iso_code",
+    "concept_ref"
   ]
 }

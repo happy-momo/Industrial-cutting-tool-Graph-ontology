@@ -18,6 +18,17 @@ def generate():
  owl=Graph().parse(ROOT/'ontology/cutting-tool.owl',format='xml')
  shapes=Graph();shapes.bind('ct',CT);shapes.bind('sh',SH)
  errors=[]
+ # Vocabulary binding: a class bound to a SKOS scheme must (a) name an existing
+ # vocabulary file and (b) actually declare a concept_ref field; conversely a
+ # concept_ref field without a binding is an alignment gap.
+ vocab = r.get('vocabulary') or {}
+ for cls, stem in vocab.items():
+  if cls not in r['classes']: errors.append('vocabulary binds unknown class '+cls)
+  if not (ROOT/'vocabulary'/f'{stem}.ttl').exists(): errors.append('vocabulary scheme file missing for '+cls+': '+stem)
+ for cls in r['classes']:
+  has_ref='concept_ref' in fields_for(r,cls); bound=cls in vocab
+  if has_ref and not bound: errors.append(cls+' declares concept_ref but is not bound to a vocabulary')
+  if bound and not has_ref: errors.append(cls+' is bound to '+vocab[cls]+' but declares no concept_ref')
  for cls,info in r['classes'].items():
   if (CT[cls],RDF.type,OWL.Class) not in owl:errors.append('OWL class missing '+cls)
   parent=info.get('parent');

@@ -19,6 +19,7 @@ owl_properties:
   series_code: seriesCode
   hardness_value: hardnessValue
   hardness_scale: hardnessScale
+  concept_ref: conceptRef
   scope_type: scopeType
   cutting_mode: cuttingMode
   coolant_mode: coolantMode

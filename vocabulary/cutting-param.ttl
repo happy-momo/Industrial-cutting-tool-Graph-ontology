@@ -1,0 +1,30 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix v: <https://example.org/cutting-tool/vocabulary/cutting-param#> .
+
+# 切削参数类概念分类树（两级结构，用于按加工方式索引参数）
+v:scheme a skos:ConceptScheme ;
+    skos:prefLabel "切削参数分类 | Cutting-parameter taxonomy"@zh .
+
+# 第一层：按加工方式分三大类
+v:turning-parameter a skos:Concept ;
+    skos:prefLabel "车削切削参数"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+v:milling-parameter a skos:Concept ;
+    skos:prefLabel "铣削切削参数"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+v:hole-making-parameter a skos:Concept ;
+    skos:prefLabel "孔加工切削参数"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+
+# 第二层：车削切削参数的细分
+v:general-turning-parameter a skos:Concept ;
+    skos:prefLabel "普通车削切削参数"@zh ; skos:broader v:turning-parameter ; skos:inScheme v:scheme .
+v:parting-grooving-parameter a skos:Concept ;
+    skos:prefLabel "切断切槽切削参数"@zh ; skos:broader v:turning-parameter ; skos:inScheme v:scheme .
+v:threading-parameter a skos:Concept ;
+    skos:prefLabel "螺纹加工切削参数"@zh ; skos:broader v:turning-parameter ; skos:inScheme v:scheme .
+
+# 常见切削量维度（供索引与检索使用）
+v:cutting-speed a skos:Concept ;
+    skos:prefLabel "切削速度"@zh ; skos:inScheme v:scheme .
+v:feed-rate a skos:Concept ;
+    skos:prefLabel "进给量"@zh ; skos:inScheme v:scheme .
+v:depth-of-cut a skos:Concept ;
+    skos:prefLabel "切削深度"@zh ; skos:inScheme v:scheme .

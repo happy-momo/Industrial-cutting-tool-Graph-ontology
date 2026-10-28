@@ -1,9 +1,154 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix v: <https://example.org/cutting-tool/vocabulary/material#> .
-v:scheme a skos:ConceptScheme .
-v:P a skos:Concept ; skos:prefLabel "P类材料"@zh ; skos:inScheme v:scheme .
-v:M a skos:Concept ; skos:prefLabel "M类材料"@zh ; skos:inScheme v:scheme .
-v:K a skos:Concept ; skos:prefLabel "K类材料"@zh ; skos:inScheme v:scheme .
-v:N a skos:Concept ; skos:prefLabel "N类材料"@zh ; skos:inScheme v:scheme .
-v:S a skos:Concept ; skos:prefLabel "S类材料"@zh ; skos:inScheme v:scheme .
-v:H a skos:Concept ; skos:prefLabel "H类材料"@zh ; skos:inScheme v:scheme .
+
+# 材料类概念分类树 
+v:scheme a skos:ConceptScheme ;
+    skos:prefLabel "材料类分类 | Material taxonomy"@zh .
+
+# 第一层：区分刀片材料与加工材料
+v:insert-material a skos:Concept ;
+    skos:prefLabel "刀片材料"@zh ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:workpiece-material a skos:Concept ;
+    skos:prefLabel "加工材料"@zh ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+
+# 刀片材料：按组成与涂层细分
+v:pcbn-pcd a skos:Concept ;
+    skos:prefLabel "PCBN/PCD"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .
+v:ceramic a skos:Concept ;
+    skos:prefLabel "陶瓷"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .
+v:cermet a skos:Concept ;
+    skos:prefLabel "金属陶瓷"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .
+v:uncoated-cermet a skos:Concept ;
+    skos:prefLabel "无涂层金属陶瓷"@zh ;
+    skos:broader v:cermet ;
+    skos:inScheme v:scheme .
+v:cvd-cermet a skos:Concept ;
+    skos:prefLabel "CVD金属陶瓷"@zh ;
+    skos:broader v:cermet ;
+    skos:inScheme v:scheme .
+v:pvd-cermet a skos:Concept ;
+    skos:prefLabel "PVD金属陶瓷"@zh ;
+    skos:broader v:cermet ;
+    skos:inScheme v:scheme .
+v:carbide a skos:Concept ;
+    skos:prefLabel "硬质合金"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .
+v:coated-carbide a skos:Concept ;
+    skos:prefLabel "涂层硬质合金"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .
+v:pvd-coated-carbide a skos:Concept ;
+    skos:prefLabel "PVD涂层硬质合金"@zh ;
+    skos:broader v:coated-carbide ;
+    skos:inScheme v:scheme .
+v:cvd-coated-carbide a skos:Concept ;
+    skos:prefLabel "CVD涂层硬质合金"@zh ;
+    skos:broader v:coated-carbide ;
+    skos:inScheme v:scheme .
+
+# 加工材料：按 ISO 六类（P/M/K/N/S/H）
+v:P a skos:Concept ;   # 保持与既有 URI 兼容
+    skos:prefLabel "P类材料"@zh ; skos:prefLabel "P (steel)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+v:M a skos:Concept ;
+    skos:prefLabel "M类材料"@zh ; skos:prefLabel "M (stainless steel)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+v:K a skos:Concept ;
+    skos:prefLabel "K类材料"@zh ; skos:prefLabel "K (cast iron)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+v:N a skos:Concept ;
+    skos:prefLabel "N类材料"@zh ; skos:prefLabel "N (non-ferrous)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+v:S a skos:Concept ;
+    skos:prefLabel "S类材料"@zh ; skos:prefLabel "S (heat-resistant)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+v:H a skos:Concept ;
+    skos:prefLabel "H类材料"@zh ; skos:prefLabel "H (hardened)"@en ;
+    skos:broader v:workpiece-material ; skos:inScheme v:scheme .
+
+# P 类钢材
+v:mild-steel a skos:Concept ;
+    skos:prefLabel "软钢"@zh ; skos:broader v:P ; skos:inScheme v:scheme .
+v:carbon-steel a skos:Concept ;
+    skos:prefLabel "碳钢"@zh ; skos:broader v:P ; skos:inScheme v:scheme .
+v:alloy-steel a skos:Concept ;
+    skos:prefLabel "合金钢"@zh ; skos:broader v:P ; skos:inScheme v:scheme .
+v:cast-steel a skos:Concept ;
+    skos:prefLabel "铸钢"@zh ; skos:broader v:P ; skos:inScheme v:scheme .
+
+# M 类不锈钢
+v:martensitic a skos:Concept ;
+    skos:prefLabel "马氏体"@zh ; skos:broader v:M ; skos:inScheme v:scheme .
+v:ferritic a skos:Concept ;
+    skos:prefLabel "铁素体"@zh ; skos:broader v:M ; skos:inScheme v:scheme .
+v:austenitic a skos:Concept ;
+    skos:prefLabel "奥氏体"@zh ; skos:broader v:M ; skos:inScheme v:scheme .
+v:stainless-steel a skos:Concept ;
+    skos:prefLabel "不锈钢"@zh ; skos:broader v:M ; skos:inScheme v:scheme .
+
+# K 类铸铁
+v:grey-iron a skos:Concept ;
+    skos:prefLabel "灰口铸铁"@zh ; skos:broader v:K ; skos:inScheme v:scheme .
+v:malleable-iron a skos:Concept ;
+    skos:prefLabel "可锻铸铁"@zh ; skos:broader v:K ; skos:inScheme v:scheme .
+v:grey-cast-iron a skos:Concept ;
+    skos:prefLabel "灰铸铁"@zh ; skos:broader v:K ; skos:inScheme v:scheme .
+v:alloy-iron a skos:Concept ;
+    skos:prefLabel "合金铸铁"@zh ; skos:broader v:K ; skos:inScheme v:scheme .
+v:nodular-iron a skos:Concept ;
+    skos:prefLabel "球磨铸铁"@zh ; skos:broader v:K ; skos:inScheme v:scheme .
+
+# H 类高硬度材料
+v:high-hardness a skos:Concept ;
+    skos:prefLabel "高硬度材料"@zh ; skos:broader v:H ; skos:inScheme v:scheme .
+v:hardened-steel a skos:Concept ;
+    skos:prefLabel "淬硬钢"@zh ; skos:broader v:H ; skos:inScheme v:scheme .
+v:chilled-iron a skos:Concept ;
+    skos:prefLabel "冷硬铸铁"@zh ; skos:broader v:H ; skos:inScheme v:scheme .
+
+# S 类耐热合金
+v:powder-metallurgy a skos:Concept ;
+    skos:prefLabel "粉末冶金"@zh ; skos:broader v:S ; skos:inScheme v:scheme .
+v:heat-resistant-alloy a skos:Concept ;
+    skos:prefLabel "高温合金"@zh ; skos:broader v:S ; skos:inScheme v:scheme .
+v:titanium-alloy a skos:Concept ;
+    skos:prefLabel "钛合金"@zh ; skos:broader v:S ; skos:inScheme v:scheme .
+
+# N 类有色金属与非金属
+v:aluminium-alloy a skos:Concept ;
+    skos:prefLabel "铝合金"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:copper-alloy a skos:Concept ;
+    skos:prefLabel "钢合金"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:plastic a skos:Concept ;
+    skos:prefLabel "塑料"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:wood a skos:Concept ;
+    skos:prefLabel "木制"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:hard-alloy a skos:Concept ;
+    skos:prefLabel "硬质合金"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:graphite a skos:Concept ;
+    skos:prefLabel "石墨"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:brass a skos:Concept ;
+    skos:prefLabel "黄铜"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+v:bronze a skos:Concept ;
+    skos:prefLabel "青铜"@zh ; skos:broader v:N ; skos:inScheme v:scheme .
+
+# 跨厂商语义对齐：山特维克依 ISO(P/K/M/N/S/H) 分类；厦门金鹭以“涂层/金属陶瓷”等命名
+v:coated-carbide skos:altLabel "涂层"@zh .
+v:cermet skos:altLabel "金属陶瓷"@zh .
+v:coated-carbide skos:scopeNote "别名来源：厂商样书本将涂层硬质合金简称为涂层；对齐到规范概念 coated-carbide(涂层硬质合金)。"@zh .
+v:cermet skos:scopeNote "别名来源：厂商样书本以金属陶瓷指称金属陶瓷刀片材质；对齐到规范概念 cermet(金属陶瓷)。"@zh .
+v:coated-metallic-ceramic a skos:Concept ;
+    skos:prefLabel "涂层金属陶瓷"@zh ;
+    skos:broader v:insert-material ;
+    skos:inScheme v:scheme .

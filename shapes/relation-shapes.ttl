@@ -1,0 +1,68 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ct: <https://example.org/cutting-tool/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# Relationship-level SHACL rules (P2). These go beyond the generated field
+# shapes and express cross-node integrity and cross-field consistency.
+# Open-world OWL semantics alone cannot express these; SHACL enforces them
+# against a closed set of asserted facts.
+
+# Rule 1 (evidence traceability): every CuttingRecommendation must be backed
+# by at least one SourceEvidence. A recommendation that cannot be traced to a
+# source is not an operational machining suggestion.
+ct:RecommendationEvidenceShape a sh:NodeShape ;
+    sh:targetClass ct:CuttingRecommendation ;
+    sh:property [ sh:path ct:supportedBy ;
+            sh:minCount 1 ;
+            sh:message "A cutting recommendation must be backed by at least one source evidence link." ] .
+
+# Rule 2 (recommended speed in range): vc_recommended must fall between the
+# declared vc_min and vc_max bounds.
+ct:VcRecommendedRangeShape a sh:NodeShape ;
+    sh:targetClass ct:CuttingParam ;
+    sh:sparql [ sh:message "vc_recommended must lie within [vc_min, vc_max]." ;
+            sh:select """
+                SELECT $this
+                WHERE {
+                  $this <https://example.org/cutting-tool/ontology#vcRecommended> ?r .
+                  $this <https://example.org/cutting-tool/ontology#vcMin> ?lo .
+                  $this <https://example.org/cutting-tool/ontology#vcMax> ?hi .
+                  FILTER (?r < ?lo || ?r > ?hi)
+                }
+            """ ] .
+
+# Rule 3 (mounting contract): if an Insert claims fitsWith a Holder, some
+# InsertSpecification must be accepted by that holder and conformed to by the
+# insert. Candidate-wildcard specs are not considered a confirmed fit here.
+ct:InsertFitsSpecShape a sh:NodeShape ;
+    sh:targetSubjectsOf ct:fitsWith ;
+    sh:sparql [ sh:message "A fitsWith holder must accept an insert specification that this insert conforms to." ;
+            sh:select """
+                SELECT $this
+                WHERE {
+                  $this <https://example.org/cutting-tool/ontology#fitsWith> ?holder .
+                  FILTER NOT EXISTS {
+                    ?spec a <https://example.org/cutting-tool/ontology#InsertSpecification> .
+                    $this <https://example.org/cutting-tool/ontology#conformsTo> ?spec .
+                    ?holder <https://example.org/cutting-tool/ontology#acceptsSpec> ?spec .
+                  }
+                }
+            """ ] .
+
+# Rule 4 (unit consistency): feed_type and feed_unit must describe the same
+# feed semantics (fn -> mm/rev, fz -> mm/tooth, vf -> mm/min). Mirrors the
+# application-level check in src/validator.py.
+ct:FeedUnitShape a sh:NodeShape ;
+    sh:targetClass ct:CuttingParam ;
+    sh:sparql [ sh:message "feed_unit is inconsistent with the declared feed_type." ;
+            sh:select """
+                SELECT $this
+                WHERE {
+                  $this <https://example.org/cutting-tool/ontology#feedType> ?ft .
+                  $this <https://example.org/cutting-tool/ontology#feedUnit> ?fu .
+                  FILTER ( (?ft = "fn" && ?fu != "mm/rev")
+                        || (?ft = "fz" && ?fu != "mm/tooth")
+                        || (?ft = "vf" && ?fu != "mm/min") )
+                }
+            """ ] .

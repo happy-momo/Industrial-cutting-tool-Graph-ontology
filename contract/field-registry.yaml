@@ -1,5 +1,12 @@
-version: 1.1.0
+version: 1.2.0
 namespace: https://example.org/cutting-tool/ontology#
+# Which controlled vocabulary (SKOS scheme) forms the value-space of each
+# closed-world class. The concept_ref field of a bound class must point at a
+# concept that exists in this scheme. Keys are vocabulary/*.ttl file stems.
+vocabulary:
+  ToolType: tool
+  ProcessMethod: process
+  MaterialClass: material
 classes:
   Entity:
     parent: null
@@ -81,10 +88,22 @@ classes:
     fields: {}
   ToolType:
     parent: Entity
-    fields: {}
+    fields:
+      concept_ref:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 240
+        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
   ProcessMethod:
     parent: Entity
-    fields: {}
+    fields:
+      concept_ref:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 240
+        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
   MaterialClass:
     parent: Entity
     fields:
@@ -98,6 +117,12 @@ classes:
         - N
         - S
         - H
+      concept_ref:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 240
+        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
   SubstrateType:
     parent: Entity
     fields: {}

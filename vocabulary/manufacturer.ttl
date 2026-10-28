@@ -1,0 +1,80 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix v: <https://example.org/cutting-tool/vocabulary/manufacturer#> .
+
+# 厂商类概念分类树（五层结构）
+v:scheme a skos:ConceptScheme ;
+    skos:prefLabel "厂商分类 | Manufacturer taxonomy"@zh .
+
+# 第一层：厂家派别
+v:domestic a skos:Concept ;
+    skos:prefLabel "国产厂家"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+v:japanese a skos:Concept ;
+    skos:prefLabel "日本厂家"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+v:european-american a skos:Concept ;
+    skos:prefLabel "欧美厂家"@zh ; skos:topConceptOf v:scheme ; skos:inScheme v:scheme .
+
+# 第二层：具体厂家
+v:zhuzhou-cemented-carbide a skos:Concept ;
+    skos:prefLabel "株洲钻石"@zh ;
+    skos:prefLabel "株洲钻石切削刀具股份有限公司"@zh ;
+    skos:broader v:domestic ; skos:inScheme v:scheme .
+v:xiamen-golden-egret a skos:Concept ;
+    skos:prefLabel "厦门金鹭"@zh ;
+    skos:prefLabel "厦门金鹭特种合金有限公司"@zh ;
+    skos:broader v:domestic ; skos:inScheme v:scheme .
+v:mitsubishi a skos:Concept ;
+    skos:prefLabel "三菱"@zh ;
+    skos:prefLabel "三菱综合材料"@zh ;
+    skos:broader v:japanese ; skos:inScheme v:scheme .
+v:kyocera a skos:Concept ;
+    skos:prefLabel "京瓷"@zh ;
+    skos:prefLabel "京瓷集团"@zh ;
+    skos:broader v:japanese ; skos:inScheme v:scheme .
+v:seco a skos:Concept ;
+    skos:prefLabel "山高"@zh ;
+    skos:prefLabel "Seco"@en ;
+    skos:broader v:european-american ; skos:inScheme v:scheme .
+v:sandvik a skos:Concept ;
+    skos:prefLabel "山特维克"@zh ;
+    skos:prefLabel "Sandvik"@en ;
+    skos:broader v:european-american ; skos:inScheme v:scheme .
+
+# 第三层及以下：按加工方式划分的产品线（以厦门金鹭为例展开三层，其余厂家复用同一产品线结构）
+v:turning-products a skos:Concept ;
+    skos:prefLabel "普通车削产品"@zh ; skos:broader v:xiamen-golden-egret ; skos:inScheme v:scheme .
+v:parting-grooving-products a skos:Concept ;
+    skos:prefLabel "切断切槽产品"@zh ; skos:broader v:xiamen-golden-egret ; skos:inScheme v:scheme .
+v:threading-products a skos:Concept ;
+    skos:prefLabel "螺纹加工产品"@zh ; skos:broader v:xiamen-golden-egret ; skos:inScheme v:scheme .
+v:milling-products a skos:Concept ;
+    skos:prefLabel "铣削产品"@zh ; skos:broader v:xiamen-golden-egret ; skos:inScheme v:scheme .
+v:hole-making-products a skos:Concept ;
+    skos:prefLabel "孔加工产品"@zh ; skos:broader v:xiamen-golden-egret ; skos:inScheme v:scheme .
+
+# 第四层：刀片/刀杆/整体刀具
+v:turning-holder-product a skos:Concept ;
+    skos:prefLabel "车削刀杆"@zh ; skos:broader v:turning-products ; skos:inScheme v:scheme .
+v:turning-insert-product a skos:Concept ;
+    skos:prefLabel "车削刀片"@zh ; skos:broader v:turning-products ; skos:inScheme v:scheme .
+v:parting-holder-product a skos:Concept ;
+    skos:prefLabel "切断切槽刀杆"@zh ; skos:broader v:parting-grooving-products ; skos:inScheme v:scheme .
+v:parting-insert-product a skos:Concept ;
+    skos:prefLabel "切断切槽刀片"@zh ; skos:broader v:parting-grooving-products ; skos:inScheme v:scheme .
+v:threading-holder-product a skos:Concept ;
+    skos:prefLabel "螺纹刀杆"@zh ; skos:broader v:threading-products ; skos:inScheme v:scheme .
+v:threading-insert-product a skos:Concept ;
+    skos:prefLabel "螺纹刀片"@zh ; skos:broader v:threading-products ; skos:inScheme v:scheme .
+v:indexable-milling-product a skos:Concept ;
+    skos:prefLabel "可转位铣削刀具"@zh ; skos:broader v:milling-products ; skos:inScheme v:scheme .
+v:solid-carbide-mill-product a skos:Concept ;
+    skos:prefLabel "整体硬质合金铣刀"@zh ; skos:broader v:milling-products ; skos:inScheme v:scheme .
+v:solid-carbide-drill-product a skos:Concept ;
+    skos:prefLabel "整体硬质合金钻头"@zh ; skos:broader v:hole-making-products ; skos:inScheme v:scheme .
+v:indexable-drill-product a skos:Concept ;
+    skos:prefLabel "可转位钻头"@zh ; skos:broader v:hole-making-products ; skos:inScheme v:scheme .
+
+# 跨厂商语义对齐：同种产品在不同厂家的不同命名
+v:solid-carbide-drill-product skos:altLabel "整硬钻头"@zh .
+v:turning-insert-product skos:altLabel "车削刀片"@zh .
+v:solid-carbide-drill-product skos:scopeNote "别名：整硬钻头为孔加工产品线约定习称，对应 tool 词表 solid-drill(整体钻头)。"@zh .
+v:turning-insert-product skos:scopeNote "别名：车削刀片为车削产品线约定习称，对应 tool 词表 turning-insert(车削刀片)。"@zh .

@@ -1,7 +1,113 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix v: <https://example.org/cutting-tool/vocabulary/process#> .
-v:scheme a skos:ConceptScheme .
-v:turning a skos:Concept ; skos:prefLabel "车削"@zh ; skos:inScheme v:scheme .
-v:external-turning a skos:Concept ; skos:prefLabel "外圆车削"@zh ; skos:inScheme v:scheme ; skos:broader v:turning .
-v:milling a skos:Concept ; skos:prefLabel "铣削"@zh ; skos:inScheme v:scheme .
-v:high-feed a skos:Concept ; skos:prefLabel "快进给铣削"@zh ; skos:inScheme v:scheme ; skos:broader v:milling .
+
+# 加工方式类概念分类树 
+v:scheme a skos:ConceptScheme ;
+    skos:prefLabel "加工方式分类 | Machining-process taxonomy"@zh .
+
+# 第一层：五大加工方式
+v:turning a skos:Concept ;
+skos:prefLabel "普通车削加工"@zh ;
+    skos:prefLabel "Turning"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:parting-grooving a skos:Concept ;
+    skos:prefLabel "切断切槽加工"@zh ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:threading a skos:Concept ;
+    skos:prefLabel "螺纹加工"@zh ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:milling a skos:Concept ;
+    skos:prefLabel "铣削加工"@zh ;
+    skos:prefLabel "Milling"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:hole-making a skos:Concept ;
+    skos:prefLabel "孔加工"@zh ;
+    skos:prefLabel "Drilling"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+
+# 普通车削加工：按加工位置细分
+v:external-turning a skos:Concept ;      # 保持与既有 URI 兼容
+    skos:prefLabel "外圆加工"@zh ;
+    skos:altLabel "外圆车削"@zh ;
+    skos:broader v:turning ;
+    skos:inScheme v:scheme .
+v:internal-turning a skos:Concept ;
+    skos:prefLabel "内孔加工"@zh ;
+    skos:altLabel "内孔车削"@zh ;
+    skos:broader v:turning ;
+    skos:inScheme v:scheme .
+
+# 切断切槽加工
+v:parting a skos:Concept ;
+    skos:prefLabel "切断加工"@zh ;
+    skos:broader v:parting-grooving ;
+    skos:inScheme v:scheme .
+v:grooving a skos:Concept ;
+    skos:prefLabel "切槽加工"@zh ;
+    skos:broader v:parting-grooving ;
+    skos:inScheme v:scheme .
+v:profiling-turning a skos:Concept ;
+    skos:prefLabel "仿形/车削加工"@zh ;
+    skos:broader v:parting-grooving ;
+    skos:inScheme v:scheme .
+
+# 螺纹加工：按加工位置与螺纹标准
+v:external-threading a skos:Concept ;
+    skos:prefLabel "外螺纹加工"@zh ;
+    skos:broader v:threading ;
+    skos:inScheme v:scheme .
+v:internal-threading a skos:Concept ;
+    skos:prefLabel "内螺纹加工"@zh ;
+    skos:broader v:threading ;
+    skos:inScheme v:scheme .
+# 螺纹标准类型
+v:round-thread a skos:Concept ;
+    skos:prefLabel "圆螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:bspt-thread a skos:Concept ;
+    skos:prefLabel "BSPT螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:npt-thread a skos:Concept ;
+    skos:prefLabel "NPT螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:un-thread a skos:Concept ;
+    skos:prefLabel "UN螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:whitworth-thread a skos:Concept ;
+    skos:prefLabel "惠氏螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:metric-thread a skos:Concept ;
+    skos:prefLabel "公制螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+v:general-thread a skos:Concept ;
+    skos:prefLabel "通用螺纹"@zh ; skos:broader v:threading ; skos:inScheme v:scheme .
+
+# 铣削加工：九类
+v:side-milling a skos:Concept ;
+    skos:prefLabel "侧铣"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:profile-milling a skos:Concept ;
+    skos:prefLabel "仿形铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:high-feed a skos:Concept ;            # 保持与既有 URI 兼容
+    skos:prefLabel "快进给铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:slot-milling a skos:Concept ;
+    skos:prefLabel "槽铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:trochoidal-milling a skos:Concept ;
+    skos:prefLabel "摆线铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:face-milling a skos:Concept ;
+    skos:prefLabel "平面铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:square-shoulder-milling a skos:Concept ;
+    skos:prefLabel "方肩铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:helical-milling a skos:Concept ;
+    skos:prefLabel "螺旋铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+v:chamfer-milling a skos:Concept ;
+    skos:prefLabel "倒角铣削"@zh ; skos:broader v:milling ; skos:inScheme v:scheme .
+
+# 跨厂商语义对齐（论文指出命名差异）：
+# 山高(Seco)将普通车削称为“ISO车削” —— altLabel 落在 v:turning
+v:turning skos:altLabel "ISO车削"@zh .
+v:turning skos:scopeNote "别名来源：山高(Seco)样书本将普通车削标注为 ISO车削；本词表将该厂商命名对齐到规范概念 turning。对齐决策见 ai设计.docx 加工方式章。"@zh .
+# 山特维克(Sandvik)将普通车削仍称“普通车削” —— 与标准术语一致
+# 三菱将“钻削(孔加工)”归入铣削子类，而京瓷将孔加工单列：
+v:milling skos:altLabel "钻削"@zh .
+v:milling skos:scopeNote "别名来源：三菱样书本将钻削(孔加工)归入铣削范畴；为跨厂商对齐作为本概念的习称保留，解析时注意与 hole-making 歧义。"@zh .
+v:hole-making skos:altLabel "钻削"@zh .
+v:hole-making skos:scopeNote "别名来源：京瓷样书本将孔加工单列并称钻削；与 milling 的别名共同体现厂商命名分歧，归一化时需按加工方式判别。"@zh .

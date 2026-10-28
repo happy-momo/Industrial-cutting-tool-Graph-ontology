@@ -1,8 +1,13 @@
 @prefix ct: <https://example.org/cutting-tool/ontology#> .
+@prefix vt: <https://example.org/cutting-tool/vocabulary/tool#> .
+@prefix vp: <https://example.org/cutting-tool/vocabulary/process#> .
+@prefix vm: <https://example.org/cutting-tool/vocabulary/material#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 ct:demoTool a ct:Insert ; ct:id "I-DEMO-01" ; ct:name "演示刀片" ; ct:model "DEMO-INSERT" ; ct:status "active" .
-ct:demoMethod a ct:ProcessMethod ; ct:id "METHOD-DEMO" ; ct:name "演示加工方式" .
-ct:demoMaterial a ct:MaterialClass ; ct:id "MAT-DEMO-P" ; ct:name "演示钢材类别" ; ct:isoCode "P" .
+ct:demoMethod a ct:ProcessMethod ; ct:id "METHOD-DEMO" ; ct:name "演示加工方式" ; ct:conceptRef vp:turning .
+# conceptRef anchors the closed-world instance to a canonical SKOS concept (the
+# controlled vocabulary is the value-space for these classes).
+ct:demoMaterial a ct:MaterialClass ; ct:id "MAT-DEMO-P" ; ct:name "演示钢材类别" ; ct:isoCode "P" ; ct:conceptRef vm:P .
 ct:demoParam a ct:CuttingParam ; ct:id "P-DEMO-01" ; ct:name "演示参数" ; ct:vcMin "110"^^xsd:decimal ; ct:vcMax "150"^^xsd:decimal ; ct:vcUnit "m/min" .
 ct:demoSource a ct:SourceEvidence ; ct:id "E-DEMO" ; ct:name "演示来源" ; ct:sourceLocator "demo/page1" .
 ct:demoRecommendation a ct:CuttingRecommendation ; ct:id "R-DEMO-01" ; ct:name "演示推荐" ; ct:scopeType "tool" ; ct:status "draft" ; ct:forTool ct:demoTool ; ct:forMaterialClass ct:demoMaterial ; ct:usesMethod ct:demoMethod ; ct:hasParam ct:demoParam ; ct:supportedBy ct:demoSource .

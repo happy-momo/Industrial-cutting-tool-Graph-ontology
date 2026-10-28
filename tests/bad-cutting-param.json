@@ -1,0 +1,9 @@
+{
+  "id": "P-BAD-01",
+  "name": "负例参数",
+  "vc_min": 200,
+  "vc_max": 120,
+  "vc_recommended": 300,
+  "feed_type": "fn",
+  "feed_unit": "mm/tooth"
+}

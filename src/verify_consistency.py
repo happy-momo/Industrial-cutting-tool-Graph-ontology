@@ -14,17 +14,17 @@ def test_all():
   passed+=1
   if not cond:errors.append(msg)
  for cls in reg['classes']:
-  schema=json.loads((ROOT/'schemas'/f'{cls}.schema.json').read_text()); check(Draft202012Validator.check_schema(schema) is None,'JSON schema invalid:'+cls)
+  schema=json.loads((ROOT/'schemas'/f'{cls}.schema.json').read_text(encoding='utf-8')); check(Draft202012Validator.check_schema(schema) is None,'JSON schema invalid:'+cls)
   for key,spec in fields_for(reg,cls).items():
    uri=CT[m['owl_properties'][key]];check((uri,RDF.type,OWL.DatatypeProperty) in owl,'OWL field missing:'+cls+'.'+key)
    check((CT[cls+'Shape'],SH.property,None) in shapes,'SHACL shape missing:'+cls)
    check(key in schema['properties'],'JSON field missing:'+cls+'.'+key)
   if cls!='RecommendationRecord':
    check(re.search(r'FOR \(n:'+re.escape(cls)+r'\)',(ROOT/'neo4j/community-constraints.cypher').read_text()) is not None,'Neo4j label missing:'+cls)
- records=json.loads((ROOT/'examples/document-anchored-tool-identifiers.json').read_text())['entities'];record_results=[]
+ records=json.loads((ROOT/'examples/document-anchored-tool-identifiers.json').read_text(encoding='utf-8'))['entities'];record_results=[]
  for item in records:
   cl=item['type'];payload={k:v for k,v in item.items() if k in fields_for(reg,cl)}
-  messages=[e.message for e in Draft202012Validator(json.loads((ROOT/'schemas'/f'{cl}.schema.json').read_text())).iter_errors(payload)]
+  messages=[e.message for e in Draft202012Validator(json.loads((ROOT/'schemas'/f'{cl}.schema.json').read_text(encoding='utf-8'))).iter_errors(payload)]
   record_results.append({'model':item['name'],'class':cl,'schema_valid':not messages,'errors':messages})
   check(not messages,'known model data:'+item['name']+str(messages))
  # Validate document-derived identifiers as RDF/SHACL, not just JSON.
@@ -47,7 +47,7 @@ def test_all():
  for rel in m.get('relations',[]):
   check((CT[rel['name']],RDF.type,OWL.ObjectProperty) in owl,'OWL relationship missing '+rel['name'])
  # JSON negative test
- bad={'id':'bad','name':'invalid label','model':'bad','status':'unknown','ic':-1};schema=json.loads((ROOT/'schemas/Insert.schema.json').read_text());check(not Draft202012Validator(schema).is_valid(bad),'JSON should reject negative ic')
+ bad={'id':'bad','name':'invalid label','model':'bad','status':'unknown','ic':-1};schema=json.loads((ROOT/'schemas/Insert.schema.json').read_text(encoding='utf-8'));check(not Draft202012Validator(schema).is_valid(bad),'JSON should reject negative ic')
  status='PASS' if not errors else 'FAIL';result={'status':status,'checks':passed,'failed':len(errors),'issues':errors,'generator':summary,'document_identifier_samples':record_results,'shacl_positive':bool(a),'shacl_document_samples':bool(doc_ok),'shacl_negative_rejected':not bool(b),'neo4j_runtime':'NOT_RUN_NO_SERVER','owl_dl_reasoner':'NOT_RUN','data_source_class':'user_document_identifiers_without_independent_catalog_verification'}
  (ROOT/'reports/verification.json').parent.mkdir(exist_ok=True)
  (ROOT/'reports/verification.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')

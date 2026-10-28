@@ -1,5 +1,142 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix v: <https://example.org/cutting-tool/vocabulary/tool#> .
-v:scheme a skos:ConceptScheme .
-v:turning-insert a skos:Concept ; skos:prefLabel "普通车削刀片"@zh ; skos:inScheme v:scheme .
-v:milling-insert a skos:Concept ; skos:prefLabel "铣削刀片"@zh ; skos:inScheme v:scheme .
+
+# 刀具类概念分类树 
+v:scheme a skos:ConceptScheme ;
+    skos:prefLabel "刀具类分类 | Cutting tool taxonomy"@zh .
+
+# 第一层：按加工方式分五大类
+v:general-turning a skos:Concept ;
+    skos:prefLabel "普通车削刀具"@zh ;
+    skos:prefLabel "General turning tools"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:parting-grooving a skos:Concept ;
+    skos:prefLabel "切断切槽刀具"@zh ;
+    skos:prefLabel "Parting and grooving tools"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:threading a skos:Concept ;
+    skos:prefLabel "螺纹加工刀具"@zh ;
+    skos:prefLabel "Threading tools"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:milling a skos:Concept ;
+    skos:prefLabel "铣削刀具"@zh ;
+    skos:prefLabel "Milling tools"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+v:hole-making a skos:Concept ;
+    skos:prefLabel "孔加工刀具"@zh ;
+    skos:prefLabel "Hole-making tools"@en ;
+    skos:topConceptOf v:scheme ;
+    skos:inScheme v:scheme .
+
+# 第二、三层：普通车削刀具
+v:turning-insert a skos:Concept ;      # 保持与既有 URI 兼容
+    skos:prefLabel "车削刀片"@zh ;
+    skos:broader v:general-turning ;
+    skos:inScheme v:scheme .
+v:turning-holder a skos:Concept ;
+    skos:prefLabel "车削刀杆"@zh ;
+    skos:broader v:general-turning ;
+    skos:inScheme v:scheme .
+v:external-turning-holder a skos:Concept ;
+    skos:prefLabel "外圆车削刀杆"@zh ;
+    skos:broader v:turning-holder ;
+    skos:inScheme v:scheme .
+v:internal-turning-holder a skos:Concept ;
+    skos:prefLabel "内孔车削刀杆"@zh ;
+    skos:broader v:turning-holder ;
+    skos:inScheme v:scheme .
+v:carbide-insert a skos:Concept ;
+    skos:prefLabel "硬质合金刀片"@zh ;
+    skos:broader v:turning-insert ;
+    skos:inScheme v:scheme .
+v:cermet-insert a skos:Concept ;
+    skos:prefLabel "金属陶瓷刀片"@zh ;
+    skos:broader v:turning-insert ;
+    skos:inScheme v:scheme .
+v:pcbn-pcd-insert a skos:Concept ;
+    skos:prefLabel "PCBN/PCD刀片"@zh ;
+    skos:broader v:turning-insert ;
+    skos:inScheme v:scheme .
+
+# 第二、三层：切断切槽刀具
+v:parting-grooving-insert a skos:Concept ;
+    skos:prefLabel "切断切槽刀片"@zh ;
+    skos:broader v:parting-grooving ;
+    skos:inScheme v:scheme .
+v:parting-grooving-holder a skos:Concept ;
+    skos:prefLabel "切断切槽刀杆"@zh ;
+    skos:broader v:parting-grooving ;
+    skos:inScheme v:scheme .
+v:external-grooving-holder a skos:Concept ;
+    skos:prefLabel "外圆刀杆"@zh ;
+    skos:broader v:parting-grooving-holder ;
+    skos:inScheme v:scheme .
+v:internal-grooving-holder a skos:Concept ;
+    skos:prefLabel "内孔刀杆"@zh ;
+    skos:broader v:parting-grooving-holder ;
+    skos:inScheme v:scheme .
+v:face-grooving-holder a skos:Concept ;
+    skos:prefLabel "端面刀杆"@zh ;
+    skos:broader v:parting-grooving-holder ;
+    skos:inScheme v:scheme .
+
+# 第二、三层：螺纹加工刀具
+v:threading-insert a skos:Concept ;
+    skos:prefLabel "螺纹加工刀片"@zh ;
+    skos:broader v:threading ;
+    skos:inScheme v:scheme .
+v:threading-holder a skos:Concept ;
+    skos:prefLabel "螺纹加工刀杆"@zh ;
+    skos:broader v:threading ;
+    skos:inScheme v:scheme .
+v:external-threading-holder a skos:Concept ;
+    skos:prefLabel "外圆螺纹刀杆"@zh ;
+    skos:broader v:threading-holder ;
+    skos:inScheme v:scheme .
+v:internal-threading-holder a skos:Concept ;
+    skos:prefLabel "内孔螺纹刀杆"@zh ;
+    skos:broader v:threading-holder ;
+    skos:inScheme v:scheme .
+
+# 第二、三层：铣削刀具
+v:indexable-milling a skos:Concept ;
+    skos:prefLabel "可转位铣削刀具"@zh ;
+    skos:broader v:milling ;
+    skos:inScheme v:scheme .
+v:solid-milling a skos:Concept ;
+    skos:prefLabel "整体铣刀"@zh ;
+    skos:broader v:milling ;
+    skos:inScheme v:scheme .
+v:indexable-milling-insert a skos:Concept ;
+    skos:prefLabel "可转位铣削刀片"@zh ;
+    skos:broader v:indexable-milling ;
+    skos:inScheme v:scheme .
+v:indexable-milling-holder a skos:Concept ;
+    skos:prefLabel "可转位铣削刀杆"@zh ;
+    skos:broader v:indexable-milling ;
+    skos:inScheme v:scheme .
+# 论文指出：山特维克将整体铣刀称为“整体硬质合金铣刀”（语义别名）
+v:solid-milling skos:altLabel "整体硬质合金铣刀"@zh .
+v:solid-milling skos:scopeNote "别名来源：山特维克(Sandvik)样书本称整体铣刀为整体硬质合金铣刀；对齐到规范概念 solid-milling(整体铣刀)。"@zh .
+
+# 第二、三层：孔加工刀具
+v:solid-drill a skos:Concept ;
+    skos:prefLabel "整体钻头"@zh ;
+    skos:broader v:hole-making ;
+    skos:inScheme v:scheme .
+v:indexable-drill a skos:Concept ;
+    skos:prefLabel "可转位钻头"@zh ;
+    skos:broader v:hole-making ;
+    skos:inScheme v:scheme .
+v:indexable-drill-holder a skos:Concept ;
+    skos:prefLabel "可转位钻头刀杆"@zh ;
+    skos:broader v:indexable-drill ;
+    skos:inScheme v:scheme .
+v:indexable-drill-insert a skos:Concept ;
+    skos:prefLabel "可转位钻头刀片"@zh ;
+    skos:broader v:indexable-drill ;
+    skos:inScheme v:scheme .

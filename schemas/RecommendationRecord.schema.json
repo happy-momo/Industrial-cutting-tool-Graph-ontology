@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/cutting-tool/ontology/schemas/RecommendationRecord.schema.json",
+  "title": "RecommendationRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "recommendation": {
+      "$ref": "CuttingRecommendation.schema.json"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tool_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "series_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "grade_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_class_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_grade_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "param_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_evidence_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "method_id",
+        "param_id",
+        "source_evidence_id"
+      ]
+    }
+  },
+  "required": [
+    "recommendation",
+    "links"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "recommendation": {
+            "properties": {
+              "scope_type": {
+                "const": "tool"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "links": {
+            "required": [
+              "tool_id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "recommendation": {
+            "properties": {
+              "scope_type": {
+                "const": "series"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "links": {
+            "required": [
+              "series_id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "recommendation": {
+            "properties": {
+              "scope_type": {
+                "const": "grade"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "links": {
+            "required": [
+              "grade_id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "recommendation": {
+            "properties": {
+              "scope_type": {
+                "const": "series_grade"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "links": {
+            "required": [
+              "series_id",
+              "grade_id"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "description": "Application validator additionally requires at least one material target."
+}

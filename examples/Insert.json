@@ -1,0 +1,8 @@
+{
+  "id": "I-DEMO-01",
+  "name": "演示刀片",
+  "model": "DEMO-INSERT",
+  "status": "active",
+  "tip_angle": 80,
+  "ic": 12.7
+}

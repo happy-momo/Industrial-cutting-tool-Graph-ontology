@@ -1,0 +1,542 @@
+@prefix ct: <https://example.org/cutting-tool/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ct:CatalogCategoryShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:CatalogCategory .
+
+ct:CoatingProcessShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:CoatingProcess .
+
+ct:CuttingConditionShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:hardnessMin ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "HB" "HRC" "HV" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:hardnessScale ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "continuous" "interrupted" "mixed" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:cuttingMode ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "dry" "wet" "mql" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:coolantMode ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:hardnessMax ] ;
+    sh:targetClass ct:CuttingCondition .
+
+ct:CuttingParamShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:vcMax ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path ct:apUnit ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:feedMax ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:apMax ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "fn" "fz" "vf" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:feedType ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:feedMin ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:vcRecommended ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:vcMin ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:apMin ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "mm/rev" "mm/tooth" "mm/min" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:feedUnit ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path ct:vcUnit ] ;
+    sh:targetClass ct:CuttingParam .
+
+ct:CuttingRecommendationShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "tool" "series" "grade" "series_grade" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:scopeType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "draft" "reviewed" "approved" "retired" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:status ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:CuttingRecommendation .
+
+ct:EntityShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:Entity .
+
+ct:HolderShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:length ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "active" "inactive" "discontinued" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:status ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:shankSize ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 120 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:model ] ;
+    sh:targetClass ct:Holder .
+
+ct:InsertShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:ic ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 120 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:model ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:thickness ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "active" "inactive" "discontinued" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:status ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 180 ;
+            sh:minExclusive 0 ;
+            sh:path ct:tipAngle ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:cornerRadius ] ;
+    sh:targetClass ct:Insert .
+
+ct:InsertSpecificationShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:InsertSpecification .
+
+ct:ManufacturerShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:Manufacturer .
+
+ct:MaterialClassShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "P" "M" "K" "N" "S" "H" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:isoCode ] ;
+    sh:targetClass ct:MaterialClass .
+
+ct:MaterialCoatingShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:MaterialCoating .
+
+ct:MaterialGradeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:gradeCode ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:MaterialGrade .
+
+ct:MaterialSubstrateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ] ;
+    sh:targetClass ct:MaterialSubstrate .
+
+ct:ProcessMethodShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:ProcessMethod .
+
+ct:ProductSeriesShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:seriesCode ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:ProductSeries .
+
+ct:SolidToolShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 90 ;
+            sh:minInclusive 0 ;
+            sh:path ct:helixAngle ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minExclusive 0 ;
+            sh:path ct:diameter ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "active" "inactive" "discontinued" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:status ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path ct:fluteCount ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 120 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:model ] ;
+    sh:targetClass ct:SolidTool .
+
+ct:SourceDocumentShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:documentName ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:documentVersion ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:SourceDocument .
+
+ct:SourceEvidenceShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path ct:pageNumber ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:sourceLocator ] ;
+    sh:targetClass ct:SourceEvidence .
+
+ct:SubstrateTypeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:SubstrateType .
+
+ct:ToolGradeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:gradeCode ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:ToolGrade .
+
+ct:ToolShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "active" "inactive" "discontinued" "unknown" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:status ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 120 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:model ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ] ;
+    sh:targetClass ct:Tool .
+
+ct:ToolTypeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ] ;
+    sh:targetClass ct:ToolType .
+
+ct:WorkpieceShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "HB" "HRC" "HV" ) ;
+            sh:maxCount 1 ;
+            sh:path ct:hardnessScale ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path ct:hardnessValue ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 240 ;
+            sh:minCount 1 ;
+            sh:minLength 1 ;
+            sh:path ct:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ct:id ;
+            sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$" ] ;
+    sh:targetClass ct:Workpiece .
+

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CuttingRecommendation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "scope_type": {
+      "type": "string",
+      "enum": [
+        "tool",
+        "series",
+        "grade",
+        "series_grade"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed",
+        "approved",
+        "retired"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "scope_type",
+    "status"
+  ]
+}

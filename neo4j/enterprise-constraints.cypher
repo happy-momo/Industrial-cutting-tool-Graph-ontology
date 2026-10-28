@@ -1,0 +1,25 @@
+// Neo4j Enterprise additional existence constraints
+CREATE CONSTRAINT ct_entity_id_exists IF NOT EXISTS FOR (n:Entity) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_tool_id_exists IF NOT EXISTS FOR (n:Tool) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_insert_id_exists IF NOT EXISTS FOR (n:Insert) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_holder_id_exists IF NOT EXISTS FOR (n:Holder) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_solid_tool_id_exists IF NOT EXISTS FOR (n:SolidTool) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_insert_specification_id_exists IF NOT EXISTS FOR (n:InsertSpecification) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_tool_type_id_exists IF NOT EXISTS FOR (n:ToolType) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_process_method_id_exists IF NOT EXISTS FOR (n:ProcessMethod) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_material_class_id_exists IF NOT EXISTS FOR (n:MaterialClass) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_substrate_type_id_exists IF NOT EXISTS FOR (n:SubstrateType) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_tool_grade_id_exists IF NOT EXISTS FOR (n:ToolGrade) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_material_substrate_id_exists IF NOT EXISTS FOR (n:MaterialSubstrate) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_material_coating_id_exists IF NOT EXISTS FOR (n:MaterialCoating) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_coating_process_id_exists IF NOT EXISTS FOR (n:CoatingProcess) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_material_grade_id_exists IF NOT EXISTS FOR (n:MaterialGrade) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_workpiece_id_exists IF NOT EXISTS FOR (n:Workpiece) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_manufacturer_id_exists IF NOT EXISTS FOR (n:Manufacturer) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_product_series_id_exists IF NOT EXISTS FOR (n:ProductSeries) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_catalog_category_id_exists IF NOT EXISTS FOR (n:CatalogCategory) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_cutting_recommendation_id_exists IF NOT EXISTS FOR (n:CuttingRecommendation) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_cutting_condition_id_exists IF NOT EXISTS FOR (n:CuttingCondition) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_cutting_param_id_exists IF NOT EXISTS FOR (n:CuttingParam) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_source_document_id_exists IF NOT EXISTS FOR (n:SourceDocument) REQUIRE n.id IS NOT NULL;
+CREATE CONSTRAINT ct_source_evidence_id_exists IF NOT EXISTS FOR (n:SourceEvidence) REQUIRE n.id IS NOT NULL;

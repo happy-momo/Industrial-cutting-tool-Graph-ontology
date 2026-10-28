@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workpiece",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "hardness_value": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hardness_scale": {
+      "type": "string",
+      "enum": [
+        "HB",
+        "HRC",
+        "HV"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name"
+  ]
+}

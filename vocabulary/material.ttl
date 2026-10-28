@@ -1,0 +1,9 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix v: <https://example.org/cutting-tool/vocabulary/material#> .
+v:scheme a skos:ConceptScheme .
+v:P a skos:Concept ; skos:prefLabel "P类材料"@zh ; skos:inScheme v:scheme .
+v:M a skos:Concept ; skos:prefLabel "M类材料"@zh ; skos:inScheme v:scheme .
+v:K a skos:Concept ; skos:prefLabel "K类材料"@zh ; skos:inScheme v:scheme .
+v:N a skos:Concept ; skos:prefLabel "N类材料"@zh ; skos:inScheme v:scheme .
+v:S a skos:Concept ; skos:prefLabel "S类材料"@zh ; skos:inScheme v:scheme .
+v:H a skos:Concept ; skos:prefLabel "H类材料"@zh ; skos:inScheme v:scheme .

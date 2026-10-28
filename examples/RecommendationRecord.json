@@ -1,0 +1,15 @@
+{
+  "recommendation": {
+    "id": "R-DEMO-01",
+    "name": "演示推荐",
+    "scope_type": "tool",
+    "status": "draft"
+  },
+  "links": {
+    "tool_id": "I-DEMO-01",
+    "method_id": "METHOD-DEMO",
+    "material_class_id": "MAT-DEMO-P",
+    "param_id": "P-DEMO-01",
+    "source_evidence_id": "E-DEMO"
+  }
+}

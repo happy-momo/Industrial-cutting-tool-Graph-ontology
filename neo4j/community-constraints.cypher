@@ -1,0 +1,25 @@
+// Neo4j 5+ Community; uniqueness does not imply existence
+CREATE CONSTRAINT ct_entity_id IF NOT EXISTS FOR (n:Entity) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_tool_id IF NOT EXISTS FOR (n:Tool) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_insert_id IF NOT EXISTS FOR (n:Insert) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_holder_id IF NOT EXISTS FOR (n:Holder) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_solid_tool_id IF NOT EXISTS FOR (n:SolidTool) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_insert_specification_id IF NOT EXISTS FOR (n:InsertSpecification) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_tool_type_id IF NOT EXISTS FOR (n:ToolType) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_process_method_id IF NOT EXISTS FOR (n:ProcessMethod) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_material_class_id IF NOT EXISTS FOR (n:MaterialClass) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_substrate_type_id IF NOT EXISTS FOR (n:SubstrateType) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_tool_grade_id IF NOT EXISTS FOR (n:ToolGrade) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_material_substrate_id IF NOT EXISTS FOR (n:MaterialSubstrate) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_material_coating_id IF NOT EXISTS FOR (n:MaterialCoating) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_coating_process_id IF NOT EXISTS FOR (n:CoatingProcess) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_material_grade_id IF NOT EXISTS FOR (n:MaterialGrade) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_workpiece_id IF NOT EXISTS FOR (n:Workpiece) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_manufacturer_id IF NOT EXISTS FOR (n:Manufacturer) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_product_series_id IF NOT EXISTS FOR (n:ProductSeries) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_catalog_category_id IF NOT EXISTS FOR (n:CatalogCategory) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_cutting_recommendation_id IF NOT EXISTS FOR (n:CuttingRecommendation) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_cutting_condition_id IF NOT EXISTS FOR (n:CuttingCondition) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_cutting_param_id IF NOT EXISTS FOR (n:CuttingParam) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_source_document_id IF NOT EXISTS FOR (n:SourceDocument) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT ct_source_evidence_id IF NOT EXISTS FOR (n:SourceEvidence) REQUIRE n.id IS UNIQUE;

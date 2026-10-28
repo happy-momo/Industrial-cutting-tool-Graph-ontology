@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Insert">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#mapsToType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CatalogCategory"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ToolType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#sourceLocator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SourceEvidence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#forSeries">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ProductSeries"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#forMaterialClass">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialClass"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#ProductSeries">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#MaterialCoating">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#documentName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SourceDocument"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <owl:versionInfo>1.1.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#forTool">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#cornerRadius">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#ToolType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#id">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Entity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hardnessScale">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Workpiece"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#feedUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#madeOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Workpiece"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialGrade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#fromDocument">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SourceEvidence"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#SourceDocument"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#inSeries">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ProductSeries"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#helixAngle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SolidTool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hardnessMin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#isoCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#MaterialClass"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#documentVersion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SourceDocument"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#CuttingRecommendation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#feedMax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#ToolGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Tool">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasCatalogCategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Manufacturer"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#CatalogCategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#SubstrateType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#coolantMode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#feedMin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ToolType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#MaterialClass">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#vcMax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#ProcessMethod">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasProduct">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ProductSeries"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#diameter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SolidTool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#scopeType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#conformsTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#InsertSpecification"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#shankSize">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Holder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#feedType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#thickness">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasSubstrate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialSubstrate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Workpiece">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Manufacturer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#pageNumber">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SourceEvidence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#ic">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hardnessMax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#suitableFor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialClass"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#apMin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasCoating">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialCoating"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#classifiedAs">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#MaterialGrade"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialClass"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#supportedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#SourceEvidence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#vcUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#forGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#usesCoatingProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#MaterialCoating"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#CoatingProcess"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#length">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Holder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#CuttingCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasSubstrateType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#MaterialSubstrate"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#SubstrateType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasSeries">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Manufacturer"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ProductSeries"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#forMaterialGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#MaterialGrade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#supportsMethod">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ProcessMethod"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#vcRecommended">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#acceptsSpec">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Holder"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#InsertSpecification"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#CuttingParam">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hasParam">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#vcMin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#apMax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#SourceDocument">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#gradeCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ToolGrade"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#MaterialGrade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#fluteCount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#SolidTool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#fitsWith">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#Holder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#apUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingParam"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#MaterialGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#cuttingMode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#status">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#SolidTool">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#SourceEvidence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#MaterialSubstrate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#seriesCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#ProductSeries"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#tipAngle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Insert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#InsertSpecification">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#Holder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#model">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Tool"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#usesMethod">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#CuttingRecommendation"/>
+    <rdfs:range rdf:resource="https://example.org/cutting-tool/ontology#ProcessMethod"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#CoatingProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#CatalogCategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://example.org/cutting-tool/ontology#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/cutting-tool/ontology#hardnessValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://example.org/cutting-tool/ontology#Workpiece"/>
+  </rdf:Description>
+</rdf:RDF>

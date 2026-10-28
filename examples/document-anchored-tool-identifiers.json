@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "source": "用户提供的AI设计.docx（文本摘录）",
+    "identity": "用户文档中出现的标识；非厂家页面独立核验",
+    "measurements": "不含真实数值或切削推荐"
+  },
+  "entities": [
+    {
+      "id": "DOC-001",
+      "name": "CNMG120408-QR",
+      "type": "Insert",
+      "description": "厦门金鹭文档研究案例：车削刀片",
+      "verification_status": "document_only",
+      "model": "CNMG120408-QR",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-002",
+      "name": "MCBNR/L2020K12",
+      "type": "Holder",
+      "description": "厦门金鹭文档研究案例：车削刀杆",
+      "verification_status": "document_only",
+      "model": "MCBNR/L2020K12",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-003",
+      "name": "UPET170520-PM",
+      "type": "Insert",
+      "description": "原始研究案例：铣削刀片",
+      "verification_status": "document_only",
+      "model": "UPET170520-PM",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-004",
+      "name": "MKA110020R02M10UD08",
+      "type": "Holder",
+      "description": "原始研究案例：铣削刀杆",
+      "verification_status": "document_only",
+      "model": "MKA110020R02M10UD08",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-005",
+      "name": "UP210-R4-01002",
+      "type": "SolidTool",
+      "description": "原始研究案例：整体铣刀",
+      "verification_status": "document_only",
+      "model": "UP210-R4-01002",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-006",
+      "name": "D938-A5C-1160",
+      "type": "SolidTool",
+      "description": "原始研究案例：整体钻头",
+      "verification_status": "document_only",
+      "model": "D938-A5C-1160",
+      "status": "unknown"
+    },
+    {
+      "id": "DOC-007",
+      "name": "GPT6110",
+      "type": "ToolGrade",
+      "description": "原始研究涉及材料牌号",
+      "verification_status": "document_only",
+      "grade_code": "GPT6110"
+    },
+    {
+      "id": "DOC-008",
+      "name": "GP31TM",
+      "type": "ToolGrade",
+      "description": "原始研究涉及材料牌号",
+      "verification_status": "document_only",
+      "grade_code": "GP31TM"
+    }
+  ]
+}

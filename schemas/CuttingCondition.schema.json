@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CuttingCondition",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "cutting_mode": {
+      "type": "string",
+      "enum": [
+        "continuous",
+        "interrupted",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "coolant_mode": {
+      "type": "string",
+      "enum": [
+        "dry",
+        "wet",
+        "mql",
+        "unknown"
+      ]
+    },
+    "hardness_min": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hardness_max": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hardness_scale": {
+      "type": "string",
+      "enum": [
+        "HB",
+        "HRC",
+        "HV"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name"
+  ]
+}

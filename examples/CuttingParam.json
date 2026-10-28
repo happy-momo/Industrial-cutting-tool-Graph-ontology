@@ -1,0 +1,15 @@
+{
+  "id": "P-DEMO-01",
+  "name": "演示参数",
+  "vc_min": 110,
+  "vc_max": 150,
+  "vc_recommended": 130,
+  "vc_unit": "m/min",
+  "feed_min": 0.1,
+  "feed_max": 0.2,
+  "feed_type": "fn",
+  "feed_unit": "mm/rev",
+  "ap_min": 0.4,
+  "ap_max": 1.0,
+  "ap_unit": "mm"
+}

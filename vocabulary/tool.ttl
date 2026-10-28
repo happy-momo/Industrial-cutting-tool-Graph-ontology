@@ -1,0 +1,5 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix v: <https://example.org/cutting-tool/vocabulary/tool#> .
+v:scheme a skos:ConceptScheme .
+v:turning-insert a skos:Concept ; skos:prefLabel "普通车削刀片"@zh ; skos:inScheme v:scheme .
+v:milling-insert a skos:Concept ; skos:prefLabel "铣削刀片"@zh ; skos:inScheme v:scheme .

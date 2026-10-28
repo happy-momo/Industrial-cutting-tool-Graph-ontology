@@ -1,0 +1,370 @@
+version: 1.1.0
+namespace: https://example.org/cutting-tool/ontology#
+classes:
+  Entity:
+    parent: null
+    fields:
+      id:
+        type: string
+        required: true
+        pattern: ^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$
+      name:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 240
+  Tool:
+    parent: Entity
+    fields:
+      model:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 120
+      status:
+        type: string
+        required: true
+        enum:
+        - active
+        - inactive
+        - discontinued
+        - unknown
+  Insert:
+    parent: Tool
+    fields:
+      tip_angle:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+        maximum: 180
+      ic:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      corner_radius:
+        type: number
+        required: false
+        minimum: 0
+      thickness:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+  Holder:
+    parent: Tool
+    fields:
+      shank_size:
+        type: string
+        required: false
+        minLength: 1
+      length:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+  SolidTool:
+    parent: Tool
+    fields:
+      diameter:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      flute_count:
+        type: integer
+        required: false
+        minimum: 1
+      helix_angle:
+        type: number
+        required: false
+        minimum: 0
+        maximum: 90
+  InsertSpecification:
+    parent: Entity
+    fields: {}
+  ToolType:
+    parent: Entity
+    fields: {}
+  ProcessMethod:
+    parent: Entity
+    fields: {}
+  MaterialClass:
+    parent: Entity
+    fields:
+      iso_code:
+        type: string
+        required: true
+        enum:
+        - P
+        - M
+        - K
+        - N
+        - S
+        - H
+  SubstrateType:
+    parent: Entity
+    fields: {}
+  ToolGrade:
+    parent: Entity
+    fields:
+      grade_code:
+        type: string
+        required: true
+        minLength: 1
+  MaterialSubstrate:
+    parent: Entity
+    fields: {}
+  MaterialCoating:
+    parent: Entity
+    fields: {}
+  CoatingProcess:
+    parent: Entity
+    fields: {}
+  MaterialGrade:
+    parent: Entity
+    fields:
+      grade_code:
+        type: string
+        required: true
+        minLength: 1
+  Workpiece:
+    parent: Entity
+    fields:
+      hardness_value:
+        type: number
+        required: false
+        minimum: 0
+      hardness_scale:
+        type: string
+        required: false
+        enum:
+        - HB
+        - HRC
+        - HV
+  Manufacturer:
+    parent: Entity
+    fields: {}
+  ProductSeries:
+    parent: Entity
+    fields:
+      series_code:
+        type: string
+        required: true
+        minLength: 1
+  CatalogCategory:
+    parent: Entity
+    fields: {}
+  CuttingRecommendation:
+    parent: Entity
+    fields:
+      scope_type:
+        type: string
+        required: true
+        enum:
+        - tool
+        - series
+        - grade
+        - series_grade
+      status:
+        type: string
+        required: true
+        enum:
+        - draft
+        - reviewed
+        - approved
+        - retired
+  CuttingCondition:
+    parent: Entity
+    fields:
+      cutting_mode:
+        type: string
+        required: false
+        enum:
+        - continuous
+        - interrupted
+        - mixed
+        - unknown
+      coolant_mode:
+        type: string
+        required: false
+        enum:
+        - dry
+        - wet
+        - mql
+        - unknown
+      hardness_min:
+        type: number
+        required: false
+        minimum: 0
+      hardness_max:
+        type: number
+        required: false
+        minimum: 0
+      hardness_scale:
+        type: string
+        required: false
+        enum:
+        - HB
+        - HRC
+        - HV
+  CuttingParam:
+    parent: Entity
+    fields:
+      vc_min:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      vc_max:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      vc_recommended:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      vc_unit:
+        type: string
+        required: false
+        const: m/min
+      feed_min:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      feed_max:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      feed_type:
+        type: string
+        required: false
+        enum:
+        - fn
+        - fz
+        - vf
+      feed_unit:
+        type: string
+        required: false
+        enum:
+        - mm/rev
+        - mm/tooth
+        - mm/min
+      ap_min:
+        type: number
+        required: false
+        minimum: 0
+      ap_max:
+        type: number
+        required: false
+        minimum: 0
+      ap_unit:
+        type: string
+        required: false
+        const: mm
+  SourceDocument:
+    parent: Entity
+    fields:
+      document_version:
+        type: string
+        required: true
+        minLength: 1
+      document_name:
+        type: string
+        required: true
+        minLength: 1
+  SourceEvidence:
+    parent: Entity
+    fields:
+      page_number:
+        type: integer
+        required: false
+        minimum: 1
+      source_locator:
+        type: string
+        required: true
+        minLength: 1
+relationships:
+- name: hasType
+  source: Tool
+  target: ToolType
+- name: supportsMethod
+  source: Tool
+  target: ProcessMethod
+- name: inSeries
+  source: Tool
+  target: ProductSeries
+- name: hasSeries
+  source: Manufacturer
+  target: ProductSeries
+- name: hasProduct
+  source: ProductSeries
+  target: Tool
+- name: hasCatalogCategory
+  source: Manufacturer
+  target: CatalogCategory
+- name: mapsToType
+  source: CatalogCategory
+  target: ToolType
+- name: hasGrade
+  source: Tool
+  target: ToolGrade
+- name: hasSubstrate
+  source: ToolGrade
+  target: MaterialSubstrate
+- name: hasCoating
+  source: ToolGrade
+  target: MaterialCoating
+- name: usesCoatingProcess
+  source: MaterialCoating
+  target: CoatingProcess
+- name: hasSubstrateType
+  source: MaterialSubstrate
+  target: SubstrateType
+- name: suitableFor
+  source: ToolGrade
+  target: MaterialClass
+- name: classifiedAs
+  source: MaterialGrade
+  target: MaterialClass
+- name: madeOf
+  source: Workpiece
+  target: MaterialGrade
+- name: fitsWith
+  source: Insert
+  target: Holder
+- name: conformsTo
+  source: Insert
+  target: InsertSpecification
+- name: acceptsSpec
+  source: Holder
+  target: InsertSpecification
+- name: forTool
+  source: CuttingRecommendation
+  target: Tool
+- name: forSeries
+  source: CuttingRecommendation
+  target: ProductSeries
+- name: forGrade
+  source: CuttingRecommendation
+  target: ToolGrade
+- name: forMaterialClass
+  source: CuttingRecommendation
+  target: MaterialClass
+- name: forMaterialGrade
+  source: CuttingRecommendation
+  target: MaterialGrade
+- name: usesMethod
+  source: CuttingRecommendation
+  target: ProcessMethod
+- name: hasCondition
+  source: CuttingRecommendation
+  target: CuttingCondition
+- name: hasParam
+  source: CuttingRecommendation
+  target: CuttingParam
+- name: supportedBy
+  source: CuttingRecommendation
+  target: SourceEvidence
+- name: fromDocument
+  source: SourceEvidence
+  target: SourceDocument
+notes:
+- OWL semantic model and controlled field contract are complementary authorities
+- Missing optional numeric values are omitted, never replaced with zero
+- Measurement units are mandatory when related measurements are supplied

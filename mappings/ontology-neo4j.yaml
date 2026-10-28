@@ -1,0 +1,147 @@
+namespace: https://example.org/cutting-tool/ontology#
+id_property: id
+owl_properties:
+  id: id
+  name: name
+  model: model
+  status: status
+  tip_angle: tipAngle
+  ic: ic
+  corner_radius: cornerRadius
+  thickness: thickness
+  shank_size: shankSize
+  length: length
+  diameter: diameter
+  flute_count: fluteCount
+  helix_angle: helixAngle
+  grade_code: gradeCode
+  iso_code: isoCode
+  series_code: seriesCode
+  hardness_value: hardnessValue
+  hardness_scale: hardnessScale
+  scope_type: scopeType
+  cutting_mode: cuttingMode
+  coolant_mode: coolantMode
+  hardness_min: hardnessMin
+  hardness_max: hardnessMax
+  vc_min: vcMin
+  vc_max: vcMax
+  vc_recommended: vcRecommended
+  vc_unit: vcUnit
+  feed_min: feedMin
+  feed_max: feedMax
+  feed_type: feedType
+  feed_unit: feedUnit
+  ap_min: apMin
+  ap_max: apMax
+  ap_unit: apUnit
+  document_version: documentVersion
+  document_name: documentName
+  page_number: pageNumber
+  source_locator: sourceLocator
+labels:
+  Entity:
+  - Entity
+  Tool:
+  - Entity
+  - Tool
+  Insert:
+  - Entity
+  - Tool
+  - Insert
+  Holder:
+  - Entity
+  - Tool
+  - Holder
+  SolidTool:
+  - Entity
+  - Tool
+  - SolidTool
+  InsertSpecification:
+  - Entity
+  - InsertSpecification
+  ToolType:
+  - Entity
+  - ToolType
+  ProcessMethod:
+  - Entity
+  - ProcessMethod
+  MaterialClass:
+  - Entity
+  - MaterialClass
+  SubstrateType:
+  - Entity
+  - SubstrateType
+  ToolGrade:
+  - Entity
+  - ToolGrade
+  MaterialSubstrate:
+  - Entity
+  - MaterialSubstrate
+  MaterialCoating:
+  - Entity
+  - MaterialCoating
+  CoatingProcess:
+  - Entity
+  - CoatingProcess
+  MaterialGrade:
+  - Entity
+  - MaterialGrade
+  Workpiece:
+  - Entity
+  - Workpiece
+  Manufacturer:
+  - Entity
+  - Manufacturer
+  ProductSeries:
+  - Entity
+  - ProductSeries
+  CatalogCategory:
+  - Entity
+  - CatalogCategory
+  CuttingRecommendation:
+  - Entity
+  - CuttingRecommendation
+  CuttingCondition:
+  - Entity
+  - CuttingCondition
+  CuttingParam:
+  - Entity
+  - CuttingParam
+  SourceDocument:
+  - Entity
+  - SourceDocument
+  SourceEvidence:
+  - Entity
+  - SourceEvidence
+relationships:
+  hasType: HAS_TYPE
+  supportsMethod: SUPPORTS_METHOD
+  inSeries: IN_SERIES
+  hasSeries: HAS_SERIES
+  hasProduct: HAS_PRODUCT
+  hasCatalogCategory: HAS_CATALOG_CATEGORY
+  mapsToType: MAPS_TO_TYPE
+  hasGrade: HAS_GRADE
+  hasSubstrate: HAS_SUBSTRATE
+  hasCoating: HAS_COATING
+  usesCoatingProcess: USES_COATING_PROCESS
+  hasSubstrateType: HAS_SUBSTRATE_TYPE
+  suitableFor: SUITABLE_FOR
+  classifiedAs: CLASSIFIED_AS
+  madeOf: MADE_OF
+  fitsWith: FITS_WITH
+  conformsTo: CONFORMS_TO
+  acceptsSpec: ACCEPTS_SPEC
+  forTool: FOR_TOOL
+  forSeries: FOR_SERIES
+  forGrade: FOR_GRADE
+  forMaterialClass: FOR_MATERIAL_CLASS
+  forMaterialGrade: FOR_MATERIAL_GRADE
+  usesMethod: USES_METHOD
+  hasCondition: HAS_CONDITION
+  hasParam: HAS_PARAM
+  supportedBy: SUPPORTED_BY
+  fromDocument: FROM_DOCUMENT
+notes: SKOS concepts are not automatically OWL subclasses; Neo4j enforces only a subset
+  of the constraints.

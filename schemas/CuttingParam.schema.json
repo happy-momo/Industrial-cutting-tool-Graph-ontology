@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CuttingParam",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "vc_min": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "vc_max": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "vc_recommended": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "vc_unit": {
+      "type": "string",
+      "const": "m/min"
+    },
+    "feed_min": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "feed_max": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "feed_type": {
+      "type": "string",
+      "enum": [
+        "fn",
+        "fz",
+        "vf"
+      ]
+    },
+    "feed_unit": {
+      "type": "string",
+      "enum": [
+        "mm/rev",
+        "mm/tooth",
+        "mm/min"
+      ]
+    },
+    "ap_min": {
+      "type": "number",
+      "minimum": 0
+    },
+    "ap_max": {
+      "type": "number",
+      "minimum": 0
+    },
+    "ap_unit": {
+      "type": "string",
+      "const": "mm"
+    }
+  },
+  "required": [
+    "id",
+    "name"
+  ]
+}

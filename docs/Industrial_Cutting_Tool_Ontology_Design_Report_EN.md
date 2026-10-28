@@ -2,11 +2,11 @@
 
 *From heterogeneous vendor catalogs to a verifiable OWL-driven knowledge architecture*
 
-Technical Design Report  |  Version 1.0  |  28 October 2026
+Technical Design Report  |  Version 1.4  |  29 October 2026
 
 # Executive summary
 
-This document consolidates the original user-authored AI Design research, the subsequent node and relationship optimization proposals, and the V1.0–V1.2 ontology project. It emphasizes design rationale, a repeatable modeling method, semantic governance, executable constraints, representative use cases, delivered artifacts, test evidence, and limits of validation. The target architecture separates OWL as the normative semantic model, SKOS as the controlled vocabulary, SHACL as RDF data validation, JSON Schema as exchange contract, and Neo4j as an application-oriented property-graph projection.
+This document consolidates the original user-authored AI Design research, the subsequent node and relationship optimization proposals, and the V1.0–V1.4 ontology project. It emphasizes design rationale, a repeatable modeling method, semantic governance, executable constraints, representative use cases, delivered artifacts, test evidence, and limits of validation. The target architecture separates OWL as the normative semantic model, SKOS as the controlled vocabulary, SHACL as RDF data validation, JSON Schema as exchange contract, and Neo4j as an application-oriented property-graph projection.
 
 | Core dimension | Current status |
 
@@ -18,7 +18,7 @@ This document consolidates the original user-authored AI Design research, the su
 
 | 应用存储 / Graph | Neo4j projection |
 
-| 工程验证 / Tests | 386 PASS; 8 source identifiers; 2 regression tests |
+| 工程验证 / Tests | 395 PASS; 8 source identifiers; 20 regression tests |
 
 # 1. Background and problem definition
 
@@ -86,9 +86,9 @@ GraphRAG / agents: map user intent into ontology-aligned queries and return evid
 
 # 7. Engineering deliverables and observed tests
 
-V1.0 established the OWL/SKOS/SHACL/JSON/Neo4j engineering structure. V1.1 added executable field registries. V1.2 implemented a repeatable generator and consistency checks with documentation and examples. The V1.2 archive contains 52 files.
+V1.0 established the OWL/SKOS/SHACL/JSON/Neo4j engineering structure. V1.1 added executable field registries. V1.2 implemented a repeatable generator and consistency checks with documentation and examples. V1.3 expanded the SKOS trees into five full taxonomies and added relationship-level SHACL rules. V1.4 closed the semantic-alignment gap: the controlled vocabulary became the enforceable value-space of the closed-world classes (`ToolType`/`ProcessMethod`/`MaterialClass` now carry a required `concept_ref`), and `src/resolve_skos.py` normalizes manufacturer aliases to canonical concept URIs while surfacing ambiguity. The V1.4 archive contains 53 tracked files.
 
-Observed V1.2 offline outcomes: 386 consistency checks passed with zero failures; eight identifiers from the user-provided source text passed structural schema checks; a valid SHACL fixture passed and an invalid fixture was rejected; two regression tests passed. Outputs include 24 JSON class schemas, 706 generated SHACL RDF triples, 24 Neo4j uniqueness statements and 24 Enterprise property-existence statements.
+Observed V1.4 offline outcomes: 395 consistency checks passed with zero failures; eight identifiers from the user-provided source text passed structural schema checks; valid SHACL fixtures passed and invalid fixtures were rejected; 20 regression tests passed across JSON/SHACL/SKOS and semantic-alignment routes. Outputs include 24 JSON class schemas, 730 generated SHACL RDF triples, 24 Neo4j uniqueness statements and 24 Enterprise property-existence statements.
 
 Testing exposed a model defect: a shared status property with multiple RDFS domains could infer that an Insert was also a CuttingRecommendation. The implementation removed the shared domain and scoped status values through class-level validations. The preferred long-term refinement is separate toolStatus and recommendationStatus properties.
 
@@ -110,6 +110,6 @@ The central contribution is a transferable local-to-global, ontology-driven engi
 
 # Appendix A. Evidence and standards
 
-Project evidence: [I1] User-provided docs; [I2] user-authored node/edge optimization plan and ensuing architecture discussions; [I3] Cutting Tool Ontology V1.2 archive, README, design notes and verification.json (offline report of 386 passing checks).
+Project evidence: [I1] User-provided docs; [I2] user-authored node/edge optimization plan and ensuing architecture discussions; [I3] Cutting Tool Ontology V1.4 archive, README, design notes, origin.md and verification.json (offline report of 395 passing checks).
 
 Standards and implementation references: [S1] W3C OWL 2 Overview, https://www.w3.org/TR/owl2-overview/; [S2] W3C SKOS Reference, https://www.w3.org/TR/skos-reference/; [S3] W3C SHACL, https://www.w3.org/TR/shacl/; [S4] Neo4j Cypher Constraints Documentation, https://neo4j.com/docs/cypher-manual/current/schema/constraints/.

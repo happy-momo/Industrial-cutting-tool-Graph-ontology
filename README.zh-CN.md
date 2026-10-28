@@ -1,34 +1,40 @@
 # 工业刀具知识图谱本体
 
-**面向工业刀具的本体驱动、约束优先的知识图谱工程基础。**
+**面向工业刀具的本体驱动、约束优先的知识图谱工程基础——用同一套语义框架，统一管理各家厂商的目录数据。**
+
+![license: MIT](https://img.shields.io/badge/license-MIT-green.svg)
+![python: 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+![status: engineering baseline](https://img.shields.io/badge/status-engineering%20baseline-orange.svg)
+![tests: 20 passing](https://img.shields.io/badge/tests-20%20passing-brightgreen.svg)
+![PRs: welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 **简体中文** | [English](README.md)
 
-> **项目状态：** v1.2 研究与工程验证基线。约束生成器和离线测试已实现，但尚未达到生产级刀具推荐平台要求
+> **项目状态：** v1.4 研究与工程验证基线。约束生成器和离线测试已实现，但尚未达到生产级刀具推荐平台要求
 
-# 写在心中的一些感悟
+## 为什么会有这个项目
 
-**为什么会有这个项目**
+工业目录说的是各自的方言——同一个概念，一家叫"ISO车削"，另一家叫"普通车削"。这个项目源于研究生阶段关于属性图 Schema 设计的研究，后经多年工业实践重构成一套开放、标准化的方式，去表示与对齐任何厂商的异构刀具数据：一个 AI 等数据驱动、语义敏感的系统可以依赖的语义底座。完整缘起见 [`docs/origin.md`](docs/origin.md)。
 
-这个项目就是我研究生期间设计的基于Neo4j的属性图模型 schema 基础之上的延申。当时的初衷主要是整理了一套面向属性图模型的schema，希望能够通过这样的一套schema，能够将非结构化的、不同厂家的、多种类型的生产加工刀具信息统一以一个标准属性图的结构和约束管理起来。这个期间的工作大多数是在收集厂商的数据，分析数据结构，寻找各种各样不同的刀具、产品、材料和逻辑关系等要素之间的关联，进而能够在这样的抽象关联基础之上做出一个统一的schema。
+## 目录
 
-这个期间其实工作说白了蛮无聊的，就是搜数据，下载下来看一看，每天整理一些数据内容。这个过程还是很消耗心性的，因为不知道自己做的东西究竟有什么意义，也不知道这个东西究竟能够创造多大的价值。不过回头来看，这段经历带给我的更多是心态上的成长，这个很宝贵！自己拥有了能够让自己稍微慢下来的能力，也拥有了更加坚定的信心去坚持自己认为正确的事情。
-
-尤其是在当前这个社会，被AI技术和各样新的挑战不断冲击情况下，变得越来越快，这个冲下去的动能越来越大。作为个体而言，能够在这样的环境下，尽可能降低环境对自己的冲击和影响就显得格外重要。
-
-因为思考很重要，慢下来的节奏对于人生来讲也很重要。得益于这段时间的工作和经历，我能够稍微有一些心态上的坚韧性，能够在面对外部冲击的情况下，有一些能力去让自己慢下来，去思考，去沉下心面对问题和解决问题。在此特别向我的老师表示感谢，他每周都会和我一对一谈话，指导详细的工作内容和方向。
-
-最重要的，他曾对我说，好的想法和设计并不是灵光一现就能够想出来的，是日日夜夜的对于技术、对于行业、对于自己的研究方向积累的基础之上，叠加着实际的工作经验和项目经验能够得到的，要慢下来，要认真思考。
-
-这段话对我收益终生。
-
-祝愿我的老师退休生活快乐！~
-
-这个项目的始发来源于我突然的想法，尘封的研究生工作从我大脑里给翻了出来。我觉得这份工作稍微有一些些价值。
-
-同样，自己工作了一段时间之后，越发认为在工业领域中，数据的标准化和语义对齐越来越重要，尤其是在AI盛行的今天，高质量的数据从根本上决定了AI的性能。并且，工业领域的数据天然就是异构并且语义混乱的，需要一套标准，所以我把自己的经验和设计稍微优化了一下，开源出来，希望能够帮到每一个看到了、搜索到了这个项目的人。
-
-
+- [为什么会有这个项目](#为什么会有这个项目)
+- [项目简介](#项目简介)
+- [技术栈](#技术栈)
+- [架构与规范权威](#架构与规范权威)
+- [领域范围与应用场景](#领域范围与应用场景)
+- [图模型](#图模型)
+- [环境要求](#环境要求)
+- [快速开始](#快速开始)
+- [JSON数据校验示例](#json数据校验示例)
+- [项目目录](#项目目录)
+- [测试结果与验证边界](#测试结果与验证边界)
+- [路线图](#路线图)
+- [二次开发与模型变更流程](#二次开发与模型变更流程)
+- [数据溯源与安全使用](#数据溯源与安全使用)
+- [贡献与安全](#贡献与安全)
+- [背景与致谢](#背景与致谢)
+- [标准说明](#标准说明)
 
 ## 项目简介
 
@@ -38,11 +44,25 @@
 
 - 采用 **OWL 2** 定义领域类、继承关系及对象/数据属性。
 - 使用 **SKOS** 管理行业分类与术语，不将所有分类词汇误当作OWL类。
+- 将受控词表作为**封闭世界类的可执行值空间**：`ToolType`/`ProcessMethod`/`MaterialClass` 携带必填的 `concept_ref`，指向其在绑定词表中的真实概念；`src/resolve_skos.py` 将厂商别名归一化为规范概念URI，并把跨词表/跨分支歧义显式暴露，供人工复核而绝不擅自猜测。
 - 基于统一**字段约束注册表**生成JSON Schema、SHACL约束和Neo4j Cypher约束。
 - 实施OWL词汇对应关系、JSON合法性、SHACL正反例、型号标识以及生成结果覆盖率的离线测试。
 - 输出可复查的机器可读验证报告。
 
 **当前不包含：** 完整厂商目录数据导入、产品规格独立核验、可直接用于加工现场的参数推荐、实际数据库部署以及完整OWL DL一致性证明。
+
+## 技术栈
+
+| 关注点 | 技术 |
+| --- | --- |
+| 语义模型 | **OWL 2**（`ontology/cutting-tool.owl`） |
+| 受控词表 | **SKOS**（`vocabulary/*.ttl`，5 棵分类树，136 个概念） |
+| RDF 数据校验 | **SHACL**（`shapes/generated-shapes.ttl`、`shapes/relation-shapes.ttl`） |
+| 数据交换契约 | **JSON Schema Draft 2020-12**（`schemas/`） |
+| 图投影 | **Neo4j Cypher** 约束（`neo4j/`） |
+| 约束契约 / 权威源 | **YAML** 字段注册表 + 映射（`contract/`、`mappings/`） |
+| 运行环境 | **Python 3.10+**（`rdflib`、`pyshacl`、`jsonschema`、`PyYAML`） |
+| 管线与 CI | `generate_constraints` → `verify_consistency` → `validate_skos` → `pytest`，GitHub Actions |
 
 ## 架构与规范权威
 
@@ -58,6 +78,44 @@
 
 **OWL是语义定义的权威来源；字段注册表是可执行数据校验规则的权威来源。** 两者借助映射和一致性测试保持同步。OWL采用开放世界语义，不能直接替代必填字段校验；SHACL及Neo4j约束也不能取代全部业务规则检查。
 
+**约束生成管线：**
+
+```mermaid
+flowchart TD
+    OWL["ontology/cutting-tool.owl (OWL语义权威)"]
+    REG["contract/field-registry.yaml (校验权威)"]
+    MAP["mappings/ontology-neo4j.yaml (投影映射)"]
+    GEN["src/generate_constraints.py"]
+    JSON["schemas/*.schema.json"]
+    SHAPES["shapes/*.ttl"]
+    NEO["neo4j/*.cypher"]
+    VER["src/verify_consistency.py (跨层校验)"]
+
+    OWL & REG & MAP --> GEN
+    GEN --> JSON
+    GEN --> SHAPES
+    GEN --> NEO
+    JSON --> VER
+    SHAPES --> VER
+    OWL --> VER
+    NEO --> VER
+    VER -.->|写出 reports/verification.json| REP[reports/verification.json]
+
+    SKOS["vocabulary/*.ttl (SKOS值空间)"]
+    RSLV["src/resolve_skos.py (别名→规范概念)"]
+    VAL["src/validator.py (应用校验 + concept_ref)"]
+    VSKOS["scripts/validate_skos.py (RDF + concept_ref 解析)"]
+    CI["CI: 生成→校验→validate_skos→pytest→drift"]
+
+    SKOS --> RSLV
+    RSLV --> VAL
+    RSLV --> VSKOS
+    SKOS --> VSKOS
+    REG --> VAL
+    VAL --> CI
+    VER --> CI
+```
+
 ## 领域范围与应用场景
 
 系统涵盖24个模型类，包括：
@@ -69,6 +127,141 @@
 - **加工推荐及来源：** `CuttingRecommendation`、`CuttingCondition`、`CuttingParam`、`SourceDocument`、`SourceEvidence`
 
 典型应用包括跨厂商产品检索、刀具牌号和工件材料的候选匹配、已核验的刀片刀杆配合记录、带约束的加工参数管理、数据源追溯以及后续GraphRAG扩展。**候选配合不等于已经确认兼容，示例参数不构成现场加工建议。**
+
+**OWL类层次**（所有具体类都继承自`Entity`）：
+
+```mermaid
+classDiagram
+    direction LR
+    class Entity
+    class Tool
+    class Insert
+    class Holder
+    class SolidTool
+    class InsertSpecification
+    class ToolType
+    class ProcessMethod
+    class MaterialClass
+    class SubstrateType
+    class ToolGrade
+    class MaterialSubstrate
+    class MaterialCoating
+    class CoatingProcess
+    class MaterialGrade
+    class Workpiece
+    class Manufacturer
+    class ProductSeries
+    class CatalogCategory
+    class CuttingRecommendation
+    class CuttingCondition
+    class CuttingParam
+    class SourceDocument
+    class SourceEvidence
+    Entity <|-- Tool
+    Tool <|-- Insert
+    Tool <|-- Holder
+    Tool <|-- SolidTool
+    Entity <|-- InsertSpecification
+    Entity <|-- ToolType
+    Entity <|-- ProcessMethod
+    Entity <|-- MaterialClass
+    Entity <|-- SubstrateType
+    Entity <|-- ToolGrade
+    Entity <|-- MaterialSubstrate
+    Entity <|-- MaterialCoating
+    Entity <|-- CoatingProcess
+    Entity <|-- MaterialGrade
+    Entity <|-- Workpiece
+    Entity <|-- Manufacturer
+    Entity <|-- ProductSeries
+    Entity <|-- CatalogCategory
+    Entity <|-- CuttingRecommendation
+    Entity <|-- CuttingCondition
+    Entity <|-- CuttingParam
+    Entity <|-- SourceDocument
+    Entity <|-- SourceEvidence
+```
+
+**受控词表即封闭世界类的值空间**——`ToolType`、`ProcessMethod`、`MaterialClass` 携带必填 `concept_ref`，锚定到其绑定词表中的真实概念：
+
+```mermaid
+flowchart LR
+    TT["ToolType"] -->|"concept_ref (必填)"| TS["SKOS · vocabulary/tool.ttl"]
+    PM["ProcessMethod"] -->|"concept_ref (必填)"| PS["SKOS · vocabulary/process.ttl"]
+    MC["MaterialClass"] -->|"concept_ref (必填)"| MS["SKOS · vocabulary/material.ttl"]
+    ISO["MaterialClass.iso_code = P | M | K | N | S | H"] --> MC
+```
+
+五棵SKOS分类树均为树状结构（以刀具分类为例）：
+
+```mermaid
+mindmap
+  root((刀具分类))
+    普通车削刀具
+      车削刀片
+        硬质合金刀片
+        金属陶瓷刀片
+        PCBN/PCD刀片
+      车削刀杆
+        外圆车削刀杆
+        内孔车削刀杆
+    切断切槽刀具
+      切断切槽刀片
+      切断切槽刀杆
+    螺纹加工刀具
+      螺纹加工刀片
+      螺纹加工刀杆
+    铣削刀具
+      可转位铣削刀具
+      整体铣刀
+    孔加工刀具
+      整体钻头
+      可转位钻头
+```
+
+## 图模型
+
+Neo4j投影将每个实体类渲染为节点、每条注册关系渲染为边。具体刀具标签`Insert`/`Holder`/`SolidTool`是独立的Neo4j标签而非`Tool`的子边；为便于阅读，关系图按三个语义簇拆分展示。
+
+```mermaid
+graph TD
+    M[Manufacturer] --hasSeries--> PS[ProductSeries]
+    M --hasCatalogCategory--> CC[CatalogCategory]
+    PS --hasProduct--> T[Tool]
+    T --inSeries--> PS
+    CC --mapsToType--> TY[ToolType]
+    T --hasType--> TY
+    T --supportsMethod--> PM[ProcessMethod]
+    T --hasGrade--> G[ToolGrade]
+    I[Insert] --fitsWith--> H[Holder]
+    I --conformsTo--> SP[InsertSpecification]
+    H --acceptsSpec--> SP
+```
+
+```mermaid
+graph TD
+    G[ToolGrade] --hasSubstrate--> SUB[MaterialSubstrate]
+    G --hasCoating--> COAT[MaterialCoating]
+    SUB --hasSubstrateType--> ST[SubstrateType]
+    COAT --usesCoatingProcess--> CP[CoatingProcess]
+    G --suitableFor--> MC[MaterialClass]
+    MG[MaterialGrade] --classifiedAs--> MC
+    WP[Workpiece] --madeOf--> MG
+```
+
+```mermaid
+graph TD
+    R[CuttingRecommendation] --hasCondition--> C[CuttingCondition]
+    R --hasParam--> P[CuttingParam]
+    R --supportedBy--> E[SourceEvidence]
+    E --fromDocument--> D[SourceDocument]
+    R --forTool--> T[Tool]
+    R --forSeries--> S[ProductSeries]
+    R --forGrade--> G[ToolGrade]
+    R --forMaterialClass--> M[MaterialClass]
+    R --forMaterialGrade--> MG[MaterialGrade]
+    R --usesMethod--> PM[ProcessMethod]
+```
 
 ## 环境要求
 
@@ -102,7 +295,8 @@ Windows PowerShell：
 python -m pip install -r requirements.txt
 python -m src.generate_constraints
 python -m src.verify_consistency
-python -m pytest tests/test_regression.py -q
+python -m scripts.validate_skos
+python -m pytest tests/ -q
 ```
 
 > `pytest`属于开发/测试依赖。如果环境中尚未安装，先运行`python -m pip install pytest`。
@@ -124,7 +318,40 @@ validate(instance=data, schema=schema)
 print('Valid')
 ```
 
-RDF及SHACL测试请参考`src/verify_consistency.py`；涉及跨字段规则的辅助校验见`src/validator.py`。
+RDF及SHACL测试请参考`src/verify_consistency.py`；涉及跨字段规则的辅助校验见`src/validator.py`。关系级别的完整性约束（数据溯源、刀片/刀杆配合契约、推荐速度范围内、进给单位一致性）以SHACL规则形式写在`shapes/relation-shapes.ttl`；如需完整的闭世界校验，请将生成形状与关系形状一起交给`pyshacl`。
+
+`vocabulary/`下的受控分类词表可通过以下命令校验RDF/SKOS合法性与完整性——包括校验示例中使用的每个`concept_ref`都能解析到真实概念（存在未解析引用即判定失败）：
+
+```bash
+python -m scripts.validate_skos
+```
+
+**将厂商术语归一化为规范概念：** 受控词表是封闭世界类的*值空间*，`src/resolve_skos.py` 能把任何规范标签或厂商别名（如山高的`ISO车削`、山特维克的`整体硬质合金铣刀`）还原为稳定的概念URI。当一个术语可解析到多个概念（如`钻削`同时指铣削与孔加工；material词表里两处不同的`硬质合金`），系统将其作为**歧义**显式暴露，交由人工或权威规则裁决，而绝不擅自选择：
+
+```bash
+python -m src.resolve_skos --term "ISO车削"
+# https://example.org/cutting-tool/vocabulary/process#turning
+python -m src.resolve_skos --report   # 完整「别名→规范概念」台账
+```
+
+`ToolType`/`ProcessMethod`/`MaterialClass` 实例需设置必填字段 `concept_ref`，指向该类绑定词表（`tool`/`process`/`material`）中的真实概念URI；应用层校验会拒绝任何无法在该词表内解析的`concept_ref`。
+
+```mermaid
+flowchart LR
+    TERM["厂商术语<br/>(如山高 'ISO车削')"]
+    RES["resolve_skos.resolve(term, scheme)"]
+    CANON["规范概念URI<br/>(process#turning)"]
+    BOUND["类.concept_ref → 概念"]
+    AMB["歧义 → 人工裁决<br/>(如 '钻削' → 铣削 AND 孔加工)"]
+
+    TERM --> RES
+    RES -->|"1 命中"| CANON
+    RES -->|"多命中"| AMB
+    CANON --> BOUND
+    AMB -.->|"裁决后重新解析"| RES
+```
+
+**关于`RecommendationRecord`：** 该JSON Schema是插入推荐接口使用的*聚合视图*（一条`CuttingRecommendation`及其指向其他实体的`links`），它**不是**OWL类，因此刻意不出现在字段注册表中。新增OWL实体请在`contract/field-registry.yaml`注册，系统会自动投影到`schemas/`、`shapes/`与`neo4j/`。
 
 ## 项目目录
 
@@ -145,11 +372,19 @@ docs/           架构设计与验证分析
 
 ## 测试结果与验证边界
 
-随附V1.2验证报告记载：**386项离线检查通过、0项失败**；其中包含原设计文档中出现的8个型号/牌号标识。SHACL正向案例通过，缺失ID的反向案例被识别，另有2项回归测试通过。详细信息见[`reports/verification.json`](reports/verification.json)。
+随附V1.4验证报告记载：**395项离线检查通过、0项失败**；其中包含原设计文档中出现的8个型号/牌号标识，并通过**20项回归测试**覆盖JSON / SHACL / SKOS 路由及受控词表强制的语义对齐。详细信息见[`reports/verification.json`](reports/verification.json)。
 
 这些检查仅证明当前**结构约束与离线测试样本**满足既定条件，**不能证明厂商产品规格真实无误**。标识字段来自已有设计材料，并未独立通过厂家手册核实。
 
-未执行的验收包括：真实Neo4j事务、完整OWL DL推理、数据库查询和性能测试、全部SHACL-SPARQL关系约束，以及真实厂商加工条件核验。
+## 路线图
+
+本版本**刻意不包含**的内容，按大致优先级：
+
+- **生产数据与部署。** 经过审计的厂商目录数据导入、真实 Neo4j DDL + Cypher 事务测试、持久化的项目自有命名空间（当前为占位符）。
+- **更深的校验。** 完整 OWL DL 推理器一致性证明、更丰富的结构化 SHACL 规则、`toolStatus`/`recommendationStatus` 拆分、更多的 SHACL-SPARQL 关系规则。
+- **应用集成。** GraphRAG / Agent 查询示例、可复用的查询脚手架、带负载与性能评估的真实厂商加工条件处理。
+
+下一里程碑是"词表驱动的目录导入"端到端：把采样到的真实目录归一化进 schema、投影到 Neo4j，并对其验证查询。
 
 ## 二次开发与模型变更流程
 
@@ -172,6 +407,10 @@ docs/           架构设计与验证分析
 - 贡献方式、编码规范和测试要求见[CONTRIBUTING.md](CONTRIBUTING.md)。
 - 安全报告和保密提示见[SECURITY.md](SECURITY.md)。
 - 不要在公开文档、测试案例、提交记录及问题附件中加入个人信息、学校信息、企业内部资料或访问凭据。示例数据应匿名化，并确保具有再分发权限。
+
+## 背景与致谢
+
+本项目始于研究生阶段关于属性图 Schema 设计的研究，后经多年工业实践重构为眼前这套本体驱动的基础。完整的个人缘起——研究经历、感悟与致谢——保留在 [`docs/origin.md`](docs/origin.md)。它被单独存放，是为了让技术文档保持精炼；而这些想法与初衷始终是项目的一部分。
 
 ## 标准说明
 

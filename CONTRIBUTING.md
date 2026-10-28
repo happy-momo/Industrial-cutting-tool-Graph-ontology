@@ -11,7 +11,8 @@ Contributions should improve ontology correctness, reproducibility, validation c
    ```bash
    python -m src.generate_constraints
    python -m src.verify_consistency
-   python -m pytest tests/test_regression.py -q
+   python -m scripts.validate_skos
+   python -m pytest tests/ -q
    ```
 
 4. Add positive and negative cases; document limitations or breaking changes in `CHANGELOG.md`.

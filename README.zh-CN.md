@@ -366,6 +366,8 @@ python -m pilot.verify_neo4j_rules   # 在线关系规则(源自 shapes/relation
 
 `relation-shapes.ttl` 的关系不变量(证据可溯源、装夹契约、单位一致、推荐转速范围)已翻译为`pilot/neo4j_rules.py`中的违规检测Cypher,使离线SHACL规则在在线图上拥有可执行等价物(`verify_neo4j_rules`在发现违规时返回非零退出码)。
 
+文档锚定夹具`examples/document-anchored-tool-identifiers.json`现为契约合规、贴近真实的摄取样例：已去除非契约字段,并通过`forTool → supportedBy → fromDocument`溯源码为每条工具记录建立证据链;可经同一管道校验、投影、入库(见`tests/test_document_identifiers.py`)。
+
 ## 项目目录
 
 ```text

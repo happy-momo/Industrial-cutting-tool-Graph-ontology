@@ -34,3 +34,12 @@ def test_bad_fixture_raises_on_unknown_relation():
                                  "name": "NOT_A_REL", "target_type": "ToolType", "target_id": "y"})
     with pytest.raises(KeyError):
         project_to_cypher(bad, reg, mapping)
+
+
+def test_unmapped_entity_field_is_a_hard_error():
+    reg, mapping = load_mapping()
+    data = json.loads((ROOT / "pilot" / "toy-catalog.json").read_text(encoding="utf-8"))
+    data["entities"].append({"type": "Manufacturer", "id": "M-X", "name": "x",
+                             "not_in_mapping": 1})
+    with pytest.raises(KeyError):
+        project_to_cypher(data, reg, mapping)

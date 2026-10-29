@@ -34,7 +34,7 @@ def project_to_cypher(data: dict, reg: dict, mapping: dict) -> str:
         cls = ent["type"]
         lbl = ":".join(labels.get(cls, [cls]))
         props = {k: v for k, v in ent.items() if k not in ("type", "id")}
-        cypher_props = ", ".join(f"{nm.get(k, k)}: {_esc(v)}" for k, v in sorted(props.items()))
+        cypher_props = ", ".join(f"{nm[k]}: {_esc(v)}" for k, v in sorted(props.items()))
         out.append(f"MERGE (n:{lbl} {{id: {_esc(ent['id'])}}}) SET n += {{{cypher_props}}};")
 
     # --- relationships ---

@@ -30,6 +30,16 @@ def main(data_path: str = str(ROOT / "pilot/toy-catalog.json")) -> int:
             nodes = s.run("MATCH (n) RETURN count(n) AS c").single()["c"]
             rels = s.run("MATCH ()-[r]->() RETURN count(r) AS c").single()["c"]
             print(f"LOADED: {nodes} nodes, {rels} relationships")
+        # Record-type relationship-invariant check on the loaded graph (non-blocking).
+        from pilot.neo4j_rules import run_rules, all_pass
+        rule_results = run_rules(driver)
+        if all_pass(rule_results):
+            print(f"RULES: all {len(rule_results)} relationship invariants honored")
+        else:
+            for r in rule_results:
+                if r["violations"]:
+                    print("RULES-FAIL: {} violations: {}".format(
+                        r["id"], [dict(v) for v in r["violations"]]))
     return 0
 
 

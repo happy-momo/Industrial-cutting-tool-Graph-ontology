@@ -1,0 +1,9 @@
+{
+  "entities": [
+    {"type": "ToolType", "id": "TY-WRONG", "name": "错误引用", "concept_ref": "https://example.org/cutting-tool/vocabulary/process#turning"},
+    {"type": "MaterialClass", "id": "MC-DANGLING", "name": "悬空", "iso_code": "P", "concept_ref": "https://example.org/cutting-tool/vocabulary/material#does-not-exist"}
+  ],
+  "relationships": [
+    {"source_type": "Manufacturer", "source_id": "NO-SUCH-ID", "name": "hasSeries", "target_type": "ProductSeries", "target_id": "S-CNT"}
+  ]
+}

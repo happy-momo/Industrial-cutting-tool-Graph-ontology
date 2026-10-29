@@ -1,0 +1,31 @@
+{
+  "entities": [
+    {"type": "Manufacturer", "id": "M-XMN", "name": "厦门金鹭"},
+    {"type": "ProductSeries", "id": "S-CNT", "name": "CN车削系列", "series_code": "CNT"},
+    {"type": "Insert", "id": "T-CNMG120408-QR", "name": "CNMG120408-QR", "model": "CNMG120408-QR", "status": "active", "ic": 12.7, "corner_radius": 0.8, "thickness": 4.76},
+    {"type": "ToolType", "id": "TY-carbide", "name": "硬质合金刀片", "concept_ref": "https://example.org/cutting-tool/vocabulary/tool#carbide-insert"},
+    {"type": "ProcessMethod", "id": "PM-turning", "name": "普通车削加工", "concept_ref": "https://example.org/cutting-tool/vocabulary/process#turning"},
+    {"type": "ToolGrade", "id": "G-GPT6110", "name": "GPT6110", "grade_code": "GPT6110"},
+    {"type": "MaterialClass", "id": "MC-P", "name": "P类材料", "iso_code": "P", "concept_ref": "https://example.org/cutting-tool/vocabulary/material#P"},
+    {"type": "MaterialGrade", "id": "MG-45", "name": "45钢", "grade_code": "45"},
+    {"type": "CuttingParam", "id": "P-DEMO", "name": "演示参数", "vc_min": 110, "vc_max": 150, "vc_recommended": 130, "vc_unit": "m/min", "feed_min": 0.1, "feed_max": 0.2, "feed_type": "fn", "feed_unit": "mm/rev", "ap_min": 0.4, "ap_max": 1.0, "ap_unit": "mm"},
+    {"type": "CuttingRecommendation", "id": "R-01", "name": "演示推荐", "scope_type": "grade", "status": "draft"},
+    {"type": "SourceDocument", "id": "DOC-001", "name": "演示文档", "document_name": "厂商样书", "document_version": "2024"},
+    {"type": "SourceEvidence", "id": "E-01", "name": "证据条目", "source_locator": "样书p12", "page_number": 12}
+  ],
+  "relationships": [
+    {"source_type": "Manufacturer", "source_id": "M-XMN", "name": "hasSeries", "target_type": "ProductSeries", "target_id": "S-CNT"},
+    {"source_type": "Tool", "source_id": "T-CNMG120408-QR", "name": "inSeries", "target_type": "ProductSeries", "target_id": "S-CNT"},
+    {"source_type": "Tool", "source_id": "T-CNMG120408-QR", "name": "hasType", "target_type": "ToolType", "target_id": "TY-carbide"},
+    {"source_type": "Tool", "source_id": "T-CNMG120408-QR", "name": "supportsMethod", "target_type": "ProcessMethod", "target_id": "PM-turning"},
+    {"source_type": "Tool", "source_id": "T-CNMG120408-QR", "name": "hasGrade", "target_type": "ToolGrade", "target_id": "G-GPT6110"},
+    {"source_type": "ToolGrade", "source_id": "G-GPT6110", "name": "suitableFor", "target_type": "MaterialClass", "target_id": "MC-P"},
+    {"source_type": "MaterialGrade", "source_id": "MG-45", "name": "classifiedAs", "target_type": "MaterialClass", "target_id": "MC-P"},
+    {"source_type": "CuttingRecommendation", "source_id": "R-01", "name": "forGrade", "target_type": "ToolGrade", "target_id": "G-GPT6110"},
+    {"source_type": "CuttingRecommendation", "source_id": "R-01", "name": "forMaterialClass", "target_type": "MaterialClass", "target_id": "MC-P"},
+    {"source_type": "CuttingRecommendation", "source_id": "R-01", "name": "usesMethod", "target_type": "ProcessMethod", "target_id": "PM-turning"},
+    {"source_type": "CuttingRecommendation", "source_id": "R-01", "name": "hasParam", "target_type": "CuttingParam", "target_id": "P-DEMO"},
+    {"source_type": "CuttingRecommendation", "source_id": "R-01", "name": "supportedBy", "target_type": "SourceEvidence", "target_id": "E-01"},
+    {"source_type": "SourceEvidence", "source_id": "E-01", "name": "fromDocument", "target_type": "SourceDocument", "target_id": "DOC-001"}
+  ]
+}

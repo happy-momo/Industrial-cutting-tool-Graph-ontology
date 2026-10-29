@@ -2,6 +2,17 @@
 
 All notable changes to this project should be recorded here. Versions refer to engineering baselines, not production certification.
 
+## [1.4.1-pilot] - End-to-end subgraph pilot
+
+Initial end-to-end validation that the architecture carries a real repository pipeline (`standardize → validate → project → load Neo4j → query`) without touching the core `src/` toolchain.
+
+- Added `pilot/`: a self-contained two-fixture subgraph (positive 12 entities / 13 relationships; negative with cross-scheme / dangling `concept_ref` and an absent relation id).
+- Added `pilot/validate_catalog.py` — reuses `src.validator.validate_entity` (+ `concept_ref` semantics) and adds relationship definition / id-integrity checks, including subclass-aware source/target matching (an `Insert` entity satisfies a declared `Tool` relation source).
+- Added `pilot/project_to_cypher.py` — deterministic, repeatable Cypher (id-uniqueness constraints + node MERGE + relationship MATCH/MERGE), aligned to `mappings/ontology-neo4j.yaml`.
+- Added `pilot/run_neo4j.sh` / `load_neo4j.py` / `query_neo4j.py` — Docker Neo4j 5-community on non-conflicting host ports (7475/7689) and driver-based load + representative queries.
+- Verified end-to-end: 4 offline tests pass; `LOADED: 12 nodes, 13 relationships` in a live Neo4j; 3/3 representative queries pass (series traversal, grade→material suitability, evidence-backed recommendation chain); idempotent re-load stays 12/13; full baseline regression stays green.
+- Changes NOT made here (identified, left for a follow-up decision): relationship invariants (evidence traceability, mounting contract, unit consistency) remain offline-SHACL-only with no Neo4j-side equivalent; the pre-existing `document-anchored-tool-identifiers.json` (8 records) is incomplete for live-ingestion demo and signals real ingestion needs a cleaning/completion step; `resolve_skos.resolve` is exact-match only (no token/normalization layer yet); namespace is still the `example.org` placeholder until production.
+
 ## [1.4] - Vocabulary-enforced semantic alignment
 
 - Closed the gap between the controlled SKOS vocabularies and instance validation: the controlled classes `ToolType` / `ProcessMethod` / `MaterialClass` now require a `concept_ref` field that must point at a real concept in their bound scheme (auto-generated into JSON Schema + SHACL pattern, and enforced by the application validator).

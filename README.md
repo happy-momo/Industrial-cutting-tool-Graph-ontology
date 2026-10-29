@@ -354,11 +354,30 @@ flowchart LR
 
 **On `RecommendationRecord`:** this JSON schema is an *aggregate view* used for the recommendation-input contract (a `CuttingRecommendation` together with its `links` to other entities). It is intentionally **not** an OWL class and is therefore **absent from the field registry** — register new OWL entities in `contract/field-registry.yaml` and they are projected into `schemas/`, `shapes/`, and `neo4j/` automatically.
 
+## End-to-end pilot (`pilot/`)
+
+A small-batch proof that the architecture carries a real repository pipeline
+`standardize → validate → project → load Neo4j → query`, reusing the existing
+authority layers (OWL / SKOS / field registry / `ontology-neo4j.yaml`) and **without
+modifying `src/`**. See [`pilot/README.md`](pilot/README.md). Verified outcome: a
+12-node / 13-relationship subgraph validates, projects to deterministic Cypher,
+loads into a local Docker Neo4j 5-community (`bolt://localhost:7689`), and answers
+3/3 representative queries (series traversal, grade→material suitability,
+evidence-backed recommendation chain). Pilot data are development fixtures, not
+production product specifications.
+
+```bash
+bash pilot/run_neo4j.sh        # start local Neo4j (host ports 7475/7689)
+python -m pilot.load_neo4j     # validate + load the toy subgraph
+python -m pilot.query_neo4j    # run representative queries (expect ALL_QUERIES_PASS)
+```
+
 ## Project layout
 
 ```text
 ontology/        OWL ontology definition
 vocabulary/      SKOS controlled vocabularies
+pilot/           End-to-end subgraph pilot (optional, non-invasive)
 contract/        Field specification and constraint source
 mappings/        OWL / data / Neo4j naming and relation mapping
 schemas/         Generated JSON Schemas

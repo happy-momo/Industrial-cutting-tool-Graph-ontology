@@ -353,11 +353,22 @@ flowchart LR
 
 **关于`RecommendationRecord`：** 该JSON Schema是插入推荐接口使用的*聚合视图*（一条`CuttingRecommendation`及其指向其他实体的`links`），它**不是**OWL类，因此刻意不出现在字段注册表中。新增OWL实体请在`contract/field-registry.yaml`注册，系统会自动投影到`schemas/`、`shapes/`与`neo4j/`。
 
+## 端到端试点(`pilot/`)
+
+用于小批量验证本架构能承载真实落地链路`标准化→校验→投影→入库Neo4j→查询`,完全复用既有权威层(OWL/SKOS/字段注册表/`ontology-neo4j.yaml`映射),**且不改动`src/`**。详见[`pilot/README.md`](pilot/README.md)。已验证结果:一个12节点/13关系的子图通过校验、投影为确定可复现Cypher、载入本地Docker的Neo4j 5-community(`bolt://localhost:7689`),并回答3/3个代表性查询(系列遍历、牌号→材料适用性、证据可溯源推荐链)。试点数据为开发fixture,不代表生产产品规格。
+
+```bash
+bash pilot/run_neo4j.sh        # 启动本地Neo4j(主机端口7475/7689)
+python -m pilot.load_neo4j     # 校验并载入自洽子图
+python -m pilot.query_neo4j    # 运行代表性查询(应输出 ALL_QUERIES_PASS)
+```
+
 ## 项目目录
 
 ```text
 ontology/        OWL本体
 vocabulary/      SKOS受控术语
+pilot/           端到端子图试点(可选、非侵入)
 contract/        字段约束注册表
 mappings/        OWL、JSON及Neo4j映射
 schemas/         自动生成的JSON Schema

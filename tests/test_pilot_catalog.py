@@ -23,3 +23,12 @@ def test_bad_fixture_rejected():
     assert "does-not-exist" in msg or "not a concept" in msg          # dangling ref
     assert "process" in msg                                            # cross-scheme ref
     assert "NO-SUCH-ID" in msg                                         # dangling relation source
+
+
+def test_duplicate_entity_ids_rejected():
+    data = _load("toy-catalog.json")
+    data["entities"].append({"type": "ToolType", "id": "TY-carbide", "name": "dup",
+                             "concept_ref": "https://example.org/cutting-tool/vocabulary/tool#carbide-insert"})
+    ok, errors = validate_catalog(data)
+    assert not ok
+    assert any("duplicate entity id 'TY-carbide'" in e for e in errors)

@@ -51,6 +51,16 @@ def validate_catalog(data: dict) -> tuple[bool, list[str]]:
         payload = {k: v for k, v in ent.items() if k != "type"}
         errors += [f"{cls}:{ent.get('id')}: {m}" for m in validate_entity(cls, payload)]
 
+    # --- off-line id uniqueness: mirrors the Neo4j unique constraint so a
+    # duplicate blows up here instead of as a NodeUnique failure at load time ---
+    seen: dict[str, int] = {}
+    for ent in data.get("entities", []):
+        eid = ent.get("id")
+        seen[eid] = seen.get(eid, 0) + 1
+    for eid, n in seen.items():
+        if n > 1:
+            errors.append(f"duplicate entity id {eid!r} ({n} x)")
+
     # --- relationships ---
     by_id = {e.get("id"): e.get("type") for e in data.get("entities", [])}
 

@@ -421,7 +421,7 @@ The next milestone is vocabulary-driven catalog ingestion end-to-end: normalize 
 
 **Known semantic pitfall:** the shared `status` property must not acquire multiple `rdfs:domain` statements that imply unrelated classes. This version avoids that error; a future migration may use `toolStatus` and `recommendationStatus`.
 
-**URI policy:** `https://example.org/` is a placeholder namespace. Establish a persistent project-owned namespace before publishing production-linked RDF.
+**URI policy:** `https://example.org/` is a placeholder namespace. The single source of truth for it is `src/namespaces.py` (`ON_BASE` / `VOCAB_BASE`); every generated artifact (shapes, schemas, constraints), the generator, scripts, and tests derive from it. To adopt a persistent project-owned namespace, change the two constants **there**, run `python -m src.generate_constraints`, and re-run the full regression. Do not hand-edit `example.org` elsewhere.
 
 ## Data provenance and safety
 

@@ -410,7 +410,7 @@ docs/           架构设计与验证分析
 
 **已知建模风险：** 不要为多业务共用的`status`属性设置会引发错误推理的多个`rdfs:domain`。当前通过移除共享Domain避免问题；未来可考虑迁移至`toolStatus`和`recommendationStatus`。
 
-**URI要求：** 项目中`https://example.org/`为占位命名空间；正式发布带URI的RDF数据前，需要替换为由维护方长期治理的持久化命名空间。
+**URI要求：** 项目中`https://example.org/`为占位命名空间；其唯一来源是`src/namespaces.py`（`ON_BASE`/`VOCAB_BASE`），所有生成产物（shapes、schemas、constraints）、生成器、脚本与测试均由它派生。正式发布带URI的RDF前，**只需在此文件修改这两个常量**，运行`python -m src.generate_constraints`并重跑全量回归即可；不要在其他文件手工改动`example.org`。
 
 ## 数据溯源与安全使用
 

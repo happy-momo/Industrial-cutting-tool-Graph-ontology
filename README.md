@@ -377,6 +377,13 @@ The `relation-shapes.ttl` invariants (evidence traceability, mounting contract, 
 consistency, recommended-speed range) are mirrored as violation-detecting Cypher
 checks in `pilot/neo4j_rules.py`, so the offline SHACL rules have an executable
 equivalent on the live graph (`verify_neo4j_rules` exits non-zero on any violation).
+R1–R4 are the relationship-level rules; R5 is a node-level rule mirroring the
+vocabulary-binding invariant (controlled-class nodes must anchor `conceptRef` under
+`VOCAB_BASE`). The offline validator and the online rules share their data sources
+so the two sides cannot drift: `R4` and `src/validator.py` both derive the
+feed-type/feed-unit pairing from `src/feed_units.py`, and id-uniqueness constraints
+emitted by the projector and by `neo4j/community-constraints.cypher` come from the
+same `src/neo4j_constraints.py` builder.
 
 The document-anchored fixture `examples/document-anchored-tool-identifiers.json` is a
 contract-compliant, near-real ingestion sample: its non-contract fields are cleaned, and

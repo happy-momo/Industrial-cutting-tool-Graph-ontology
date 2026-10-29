@@ -364,7 +364,7 @@ python -m pilot.query_neo4j    # 运行代表性查询(应输出 ALL_QUERIES_PAS
 python -m pilot.verify_neo4j_rules   # 在线关系规则(源自 shapes/relation-shapes.ttl)
 ```
 
-`relation-shapes.ttl` 的关系不变量(证据可溯源、装夹契约、单位一致、推荐转速范围)已翻译为`pilot/neo4j_rules.py`中的违规检测Cypher,使离线SHACL规则在在线图上拥有可执行等价物(`verify_neo4j_rules`在发现违规时返回非零退出码)。
+`relation-shapes.ttl` 的关系不变量(证据可溯源、装夹契约、单位一致、推荐转速范围)已翻译为`pilot/neo4j_rules.py`中的违规检测Cypher,使离线SHACL规则在在线图上拥有可执行等价物(`verify_neo4j_rules`在发现违规时返回非零退出码)。R1–R4 为关系级规则;R5 为节点级规则,镜像「受控类节点必须把 `conceptRef` 锚定到 `VOCAB_BASE`」的不变量。离线校验与在线规则共享数据源、防止两处分叉:`R4` 与 `src/validator.py` 的进给配对都取自 `src/feed_units.py`;投影器与 `neo4j/community-constraints.cypher` 发出的 id 唯一约束同出自 `src/neo4j_constraints.py` 单一构建器。
 
 文档锚定夹具`examples/document-anchored-tool-identifiers.json`现为契约合规、贴近真实的摄取样例：已去除非契约字段,并通过`forTool → supportedBy → fromDocument`溯源码为每条工具记录建立证据链;可经同一管道校验、投影、入库(见`tests/test_document_identifiers.py`)。
 

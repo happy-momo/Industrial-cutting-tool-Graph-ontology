@@ -28,8 +28,11 @@ python -m pytest tests/test_pilot_catalog.py tests/test_pilot_project.py -q
 bash pilot/run_neo4j.sh
 
 # 3. Load + query
-python -m pilot.load_neo4j
-python -m pilot.query_neo4j
+python -m pilot.load_neo4j         # also runs the online relationship-invariant check
+python -m pilot.query_neo4j        # representative queries (expect ALL_QUERIES_PASS)
+
+# 4. Verify the online relationship rules (offline SHACL invariants on the graph)
+python -m pilot.verify_neo4j_rules # expect ALL_RULES_PASS; non-zero exit on violations
 ```
 
 ## Files
@@ -43,6 +46,19 @@ python -m pilot.query_neo4j
 - `project_to_cypher.py` — deterministic Cypher (id constraints + node MERGE +
   relationship MATCH/MERGE), aligned to `ontology-neo4j.yaml`
 - `run_neo4j.sh`, `load_neo4j.py`, `query_neo4j.py` — Docker + driver load/query
+- `neo4j_rules.py`, `verify_neo4j_rules.py` — online relationship invariants
+  mirroring the four SHACL rules in `shapes/relation-shapes.ttl`, run against the
+  loaded graph (`python -m pilot.verify_neo4j_rules`). Also run on `load_neo4j.py`.
+
+## Online relationship rules
+
+The four relationship-level SHACL rules are mirrored as violation-detecting Cypher
+queries that run against the loaded graph. Because Neo4j Community Cypher cannot
+declare "this relationship must exist" as a constraint, the invariants are enforced
+as checks (recorded, not rejecting); `verify_neo4j_rules.py` exits non-zero on any
+violation for CI/audit use. Verified: clean 12/13 subgraph passes all 4; injected
+violations (a recommendation without evidence, a mismatched feed unit) are detected
+and cleanup restores a clean pass.
 
 ## Pilot data is not production data
 

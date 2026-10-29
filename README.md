@@ -368,9 +368,15 @@ production product specifications.
 
 ```bash
 bash pilot/run_neo4j.sh        # start local Neo4j (host ports 7475/7689)
-python -m pilot.load_neo4j     # validate + load the toy subgraph
+python -m pilot.load_neo4j     # validate + load the toy subgraph (checks online invariants)
 python -m pilot.query_neo4j    # run representative queries (expect ALL_QUERIES_PASS)
+python -m pilot.verify_neo4j_rules   # online relationship rules from shapes/relation-shapes.ttl
 ```
+
+The `relation-shapes.ttl` invariants (evidence traceability, mounting contract, unit
+consistency, recommended-speed range) are mirrored as violation-detecting Cypher
+checks in `pilot/neo4j_rules.py`, so the offline SHACL rules have an executable
+equivalent on the live graph (`verify_neo4j_rules` exits non-zero on any violation).
 
 ## Project layout
 

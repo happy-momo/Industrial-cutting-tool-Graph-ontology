@@ -359,9 +359,12 @@ flowchart LR
 
 ```bash
 bash pilot/run_neo4j.sh        # 启动本地Neo4j(主机端口7475/7689)
-python -m pilot.load_neo4j     # 校验并载入自洽子图
+python -m pilot.load_neo4j     # 校验并载入自洽子图(并校验在线关系不变量)
 python -m pilot.query_neo4j    # 运行代表性查询(应输出 ALL_QUERIES_PASS)
+python -m pilot.verify_neo4j_rules   # 在线关系规则(源自 shapes/relation-shapes.ttl)
 ```
+
+`relation-shapes.ttl` 的关系不变量(证据可溯源、装夹契约、单位一致、推荐转速范围)已翻译为`pilot/neo4j_rules.py`中的违规检测Cypher,使离线SHACL规则在在线图上拥有可执行等价物(`verify_neo4j_rules`在发现违规时返回非零退出码)。
 
 ## 项目目录
 

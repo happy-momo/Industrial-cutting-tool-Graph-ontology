@@ -3,7 +3,7 @@ import json,yaml,sys
 from rdflib import Graph,Namespace,RDF,RDFS,OWL,URIRef,Literal,BNode
 from rdflib.namespace import XSD,SH
 ROOT=Path(__file__).resolve().parents[1]
-CT=Namespace('https://example.org/cutting-tool/ontology#')
+from src.namespaces import ON as CT
 DTD={'string':XSD.string,'number':XSD.decimal,'integer':XSD.integer,'boolean':XSD.boolean}
 def load():
  r=yaml.safe_load((ROOT/'contract/field-registry.yaml').read_text(encoding='utf-8'))

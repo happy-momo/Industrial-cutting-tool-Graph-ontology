@@ -105,7 +105,8 @@ class TestRdfRoute:
         from rdflib.namespace import RDF
         from pyshacl import validate
 
-        CT = Namespace("https://example.org/cutting-tool/ontology#")
+        from src.namespaces import ON
+        CT = ON
         shapes = Graph().parse(ROOT / "shapes" / "generated-shapes.ttl", format="turtle")
         ont = Graph().parse(ROOT / "ontology" / "cutting-tool.owl", format="xml")
         relation_shapes = Graph().parse(ROOT / "shapes" / "relation-shapes.ttl", format="turtle")

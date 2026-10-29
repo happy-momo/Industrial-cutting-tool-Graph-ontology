@@ -23,7 +23,7 @@ def _collect_concept_refs() -> list[str]:
     dangling reference means the closed-world instance points outside the value-space.
     """
     refs: list[str] = []
-    ct = Namespace("https://example.org/cutting-tool/ontology#")
+    from src.namespaces import ON as ct
     examples = ROOT / "examples"
     ttl = examples / "example.ttl"
     if ttl.exists():

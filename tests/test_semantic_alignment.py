@@ -16,9 +16,11 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 
-VOCAB_T = "https://example.org/cutting-tool/vocabulary/tool#"
-VOCAB_P = "https://example.org/cutting-tool/vocabulary/process#"
-VOCAB_M = "https://example.org/cutting-tool/vocabulary/material#"
+from src.namespaces import ON, VOCAB_BASE
+
+VOCAB_T = VOCAB_BASE + "tool#"
+VOCAB_P = VOCAB_BASE + "process#"
+VOCAB_M = VOCAB_BASE + "material#"
 
 
 # --------------------------------------------------------------------------

@@ -1,79 +1,36 @@
 {
   "metadata": {
     "source": "用户提供的AI设计.docx（文本摘录）",
-    "identity": "用户文档中出现的标识；非厂家页面独立核验",
-    "measurements": "不含真实数值或切削推荐"
+    "identity": "用户文档中出现的工具编码；非厂家页面独立核验",
+    "measurements": "不含真实数值或切削推荐",
+    "cleaning": "非契约字段 description/verification_status 已去除后迁移至 metadata；工具编码标准化为 model 字段；溯源链经 forTool+supportedBy+fromDocument",
+    "notes": {
+      "DOC-001": "厦门金鹭文档研究案例：车削刀片",
+      "DOC-002": "厦门金鹭文档研究案例：车削刀杆",
+      "DOC-003": "原始研究案例：铣削刀片",
+      "DOC-004": "原始研究案例：铣削刀杆",
+      "DOC-005": "原始研究案例：整体铣刀",
+      "DOC-006": "原始研究案例：整体钻头",
+      "DOC-007": "原始研究涉及材料牌号",
+      "DOC-008": "原始研究涉及材料牌号"
+    }
   },
   "entities": [
-    {
-      "id": "DOC-001",
-      "name": "CNMG120408-QR",
-      "type": "Insert",
-      "description": "厦门金鹭文档研究案例：车削刀片",
-      "verification_status": "document_only",
-      "model": "CNMG120408-QR",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-002",
-      "name": "MCBNR/L2020K12",
-      "type": "Holder",
-      "description": "厦门金鹭文档研究案例：车削刀杆",
-      "verification_status": "document_only",
-      "model": "MCBNR/L2020K12",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-003",
-      "name": "UPET170520-PM",
-      "type": "Insert",
-      "description": "原始研究案例：铣削刀片",
-      "verification_status": "document_only",
-      "model": "UPET170520-PM",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-004",
-      "name": "MKA110020R02M10UD08",
-      "type": "Holder",
-      "description": "原始研究案例：铣削刀杆",
-      "verification_status": "document_only",
-      "model": "MKA110020R02M10UD08",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-005",
-      "name": "UP210-R4-01002",
-      "type": "SolidTool",
-      "description": "原始研究案例：整体铣刀",
-      "verification_status": "document_only",
-      "model": "UP210-R4-01002",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-006",
-      "name": "D938-A5C-1160",
-      "type": "SolidTool",
-      "description": "原始研究案例：整体钻头",
-      "verification_status": "document_only",
-      "model": "D938-A5C-1160",
-      "status": "unknown"
-    },
-    {
-      "id": "DOC-007",
-      "name": "GPT6110",
-      "type": "ToolGrade",
-      "description": "原始研究涉及材料牌号",
-      "verification_status": "document_only",
-      "grade_code": "GPT6110"
-    },
-    {
-      "id": "DOC-008",
-      "name": "GP31TM",
-      "type": "ToolGrade",
-      "description": "原始研究涉及材料牌号",
-      "verification_status": "document_only",
-      "grade_code": "GP31TM"
-    }
+    {"type": "SourceDocument",          "id": "DOC-SRC-001", "name": "AI设计文档摘录", "document_version": "draft-1", "document_name": "用户提供的AI设计.docx"},
+    {"type": "Insert",                 "id": "DOC-001", "name": "CNMG120408-QR",     "model": "CNMG120408-QR", "status": "unknown"},
+    {"type": "Holder",                 "id": "DOC-002", "name": "MCBNR/L2020K12",   "model": "MCBNR/L2020K12", "status": "unknown"},
+    {"type": "Insert",                 "id": "DOC-003", "name": "UPET170520-PM",     "model": "UPET170520-PM", "status": "unknown"},
+    {"type": "Holder",                 "id": "DOC-004", "name": "MKA110020R02M10UD08", "model": "MKA110020R02M10UD08", "status": "unknown"},
+    {"type": "SolidTool",              "id": "DOC-005", "name": "UP210-R4-01002",    "model": "UP210-R4-01002", "status": "unknown"},
+    {"type": "SolidTool",              "id": "DOC-006", "name": "D938-A5C-1160",    "model": "D938-A5C-1160", "status": "unknown"},
+    {"type": "ToolGrade",              "id": "DOC-007", "name": "GPT6110",          "grade_code": "GPT6110"},
+    {"type": "ToolGrade",              "id": "DOC-008", "name": "GP31TM",           "grade_code": "GP31TM"},
+    {"type": "SourceEvidence",         "id": "EV-001",  "name": "工具编码所在页",    "source_locator": "用户提供的AI设计.docx", "page_number": 1},
+    {"type": "CuttingRecommendation",  "id": "REC-001", "name": "CNMG120408-QR 推荐", "scope_type": "tool", "status": "reviewed"}
+  ],
+  "relationships": [
+    {"name": "forTool",      "source_id": "REC-001", "target_id": "DOC-001",    "source_type": "CuttingRecommendation", "target_type": "Tool"},
+    {"name": "supportedBy",  "source_id": "REC-001", "target_id": "EV-001",     "source_type": "CuttingRecommendation", "target_type": "SourceEvidence"},
+    {"name": "fromDocument", "source_id": "EV-001",  "target_id": "DOC-SRC-001", "source_type": "SourceEvidence", "target_type": "SourceDocument"}
   ]
 }

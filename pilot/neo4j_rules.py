@@ -7,6 +7,8 @@ mappings/ontology-neo4j.yaml (owl_properties camelCase; relationships->UPPER).
 """
 from __future__ import annotations
 
+from src.namespaces import VOCAB_BASE
+
 # R1 — evidence traceability (shapes/relation-shapes.ttl RecommendationEvidenceShape):
 # every CuttingRecommendation must be linked to at least one SourceEvidence.
 R1_EVIDENCE = """
@@ -37,14 +39,28 @@ RETURN i.id AS id, h.id AS holder
 """
 
 # R4 — feed-unit consistency (shapes/relation-shapes.ttl FeedUnitShape):
-# feed_type and feed_unit must describe the same feed semantics.
-R4_FEED_UNIT = """
+# feed_type and feed_unit must describe the same feed semantics. The OR-chain is
+# derived from the single-source pairing table so the offline validator and the
+# online rule can never drift apart.
+from src.feed_units import FEED_UNITS
+
+_R4_OR = " OR\n".join(
+    f"(p.feedType = '{ft}' AND p.feedUnit <> '{fu}')" for ft, fu in FEED_UNITS.items()
+)
+R4_FEED_UNIT = f"""
 MATCH (p:CuttingParam)
-WHERE (p.feedType = 'fn' AND p.feedUnit <> 'mm/rev')
-   OR (p.feedType = 'fz' AND p.feedUnit <> 'mm/tooth')
-   OR (p.feedType = 'vf' AND p.feedUnit <> 'mm/min')
+WHERE {_R4_OR}
 RETURN p.id AS id
 """
+
+# R5 — node-level mirror of the vocabulary-binding invariant: every
+# controlled class node must carry a conceptRef rooted at the project vocab base.
+_VOCAB_BOUND = ("ToolType", "ProcessMethod", "MaterialClass")
+R5_CONCEPT_REF = (
+    "MATCH (n:" + "|".join(_VOCAB_BOUND) + ") "
+    f"WHERE n.conceptRef IS NULL OR NOT n.conceptRef STARTS WITH '{VOCAB_BASE}' "
+    "RETURN n.id AS id"
+)
 
 RULES: list[dict] = [
     {"id": "R1_evidence", "name": "recommendation needs supporting evidence",
@@ -55,6 +71,8 @@ RULES: list[dict] = [
      "shacl_ref": "InsertFitsSpecShape", "cypher": R3_MOUNTING},
     {"id": "R4_feed_unit", "name": "feed_type and feed_unit agreement",
      "shacl_ref": "FeedUnitShape", "cypher": R4_FEED_UNIT},
+    {"id": "R5_concept_ref", "name": "controlled-class concept must anchor in the vocabulary",
+     "shacl_ref": "VocabularyBindingShape", "cypher": R5_CONCEPT_REF},
 ]
 
 

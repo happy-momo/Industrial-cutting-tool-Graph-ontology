@@ -33,7 +33,7 @@ def _concept_ref_errors(cls,data):
 # fn  -> mm/rev (feed per revolution)
 # fz  -> mm/tooth (feed per tooth/fange)
 # vf  -> mm/min (linear feed relative to time)
-_FEED_UNITS = {'fn': 'mm/rev', 'fz': 'mm/tooth', 'vf': 'mm/min'}
+from src.feed_units import FEED_UNITS as _FEED_UNITS
 
 def _feed_unit_errors(data):
     feed_type = data.get('feed_type')

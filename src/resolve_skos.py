@@ -160,6 +160,26 @@ def resolve(term: str, scheme_stem: str | None = None) -> list[str]:
     return hits
 
 
+def resolve_tokens(term: str, scheme_stem: str | None = None) -> list[str]:
+    """Concepts whose normalized labels contain every normalized token of `term`.
+
+    Token recall, NOT a guess: ALL matching concepts are returned (ambiguity is
+    surfaced). Returns [] when no label contains all tokens.
+    """
+    idx = load_taxonomy()
+    tokens = [normalize(t) for t in re.split(r"[\s\-_/、,，]+", term) if t]
+    if not tokens:
+        return []
+    norm_labels = {uri: [normalize(l) for l in entry["contains"]]
+                    for uri, entry in idx.items() if not uri.startswith("__")}
+    hits = {uri for uri, labs in norm_labels.items()
+            if any(all(tok in lab for tok in tokens) for lab in labs)}
+    out = sorted(hits)
+    if scheme_stem:
+        out = [u for u in out if idx.get(u, {}).get("scheme") == scheme_stem]
+    return out
+
+
 def ambiguous_terms() -> list[str]:
     """Labels (prefLabel or altLabel) that resolve to more than one concept.
 

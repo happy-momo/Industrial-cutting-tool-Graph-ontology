@@ -38,3 +38,18 @@ def test_ambiguity_still_surfaced_not_guessed():
 
 def test_exact_behavior_unchanged_exact_first():
     assert resolve_skos.resolve("ISO车削", "process") == [P + "turning"]
+
+
+def test_resolve_tokens_subset_label():
+    # 整体硬质合金铣刀 is an altLabel of solid-milling; a subset query returns it
+    hits = resolve_skos.resolve_tokens("硬质合金铣刀", "tool")
+    assert T + "solid-milling" in hits
+
+
+def test_resolve_tokens_never_guesses_multiple_returned():
+    hits = resolve_skos.resolve_tokens("钻削", "process")
+    assert {P + "milling", P + "hole-making"} <= set(hits)
+
+
+def test_resolve_tokens_empty_when_no_label_contains():
+    assert resolve_skos.resolve_tokens("不存在的词XYZ", "tool") == []

@@ -3,7 +3,13 @@ import json,yaml,sys
 from rdflib import Graph,Namespace,RDF,RDFS,OWL,URIRef,Literal,BNode
 from rdflib.namespace import XSD,SH
 ROOT=Path(__file__).resolve().parents[1]
-from src.namespaces import ON as CT
+from src.namespaces import ON as CT, VOCAB_BASE
+_VOCAB_TOKEN='{{VOCAB_BASE}}'
+# Escape only the dot (the sole regex metachar in the URL) so the derived prefix is
+# byte-identical to the hand-written original (hyphens/slashes stay untouched).
+_VOCAB_ESC=VOCAB_BASE.rstrip('/').replace('.', r'\.')
+def _expand_pattern(value):
+ return value.replace(_VOCAB_TOKEN,_VOCAB_ESC) if isinstance(value,str) else value
 DTD={'string':XSD.string,'number':XSD.decimal,'integer':XSD.integer,'boolean':XSD.boolean}
 def load():
  r=yaml.safe_load((ROOT/'contract/field-registry.yaml').read_text(encoding='utf-8'))
@@ -41,6 +47,7 @@ def generate():
    if not owlkey:errors.append('OWL property mapping missing '+key);continue
    if (CT[owlkey],RDF.type,OWL.DatatypeProperty) not in owl:errors.append('OWL data property missing '+owlkey)
    opts={k:v for k,v in spec.items() if k not in ['required']}
+   if isinstance(opts.get('pattern'),str):opts['pattern']=_expand_pattern(opts['pattern'])
    props[key]=opts
    if spec.get('required'):required.append(key)
    ps=BNode();shapes.add((shape,SH.property,ps));shapes.add((ps,SH.path,CT[owlkey]))
@@ -48,7 +55,7 @@ def generate():
    shapes.add((ps,SH.maxCount,Literal(1)))
    if spec['type'] in DTD:shapes.add((ps,SH.datatype,DTD[spec['type']]))
    for keyword,predicate in [('minimum',SH.minInclusive),('maximum',SH.maxInclusive),('exclusiveMinimum',SH.minExclusive),('exclusiveMaximum',SH.maxExclusive),('minLength',SH.minLength),('maxLength',SH.maxLength),('pattern',SH.pattern)]:
-    if keyword in spec:shapes.add((ps,predicate,Literal(spec[keyword])))
+    if keyword in spec:shapes.add((ps,predicate,Literal(_expand_pattern(spec[keyword]))))
    if 'enum' in spec:
     from rdflib.collection import Collection
     head=BNode();Collection(shapes,head,[Literal(v) for v in spec['enum']]);shapes.add((ps,SH['in'],head))
@@ -56,12 +63,10 @@ def generate():
   (ROOT/'schemas'/f'{cls}.schema.json').write_text(json.dumps(schema,ensure_ascii=False,indent=2)+'\n')
  if errors:raise ValueError('\n'.join(sorted(set(errors))))
  shapes.serialize(ROOT/'shapes/generated-shapes.ttl',format='turtle')
- common=[];enterprise=[]
- import re
+ from src.neo4j_constraints import community_constraints, constraint_name
+ common=community_constraints(list(r['classes']));enterprise=[]
  for cls in r['classes']:
-  nm='ct_'+re.sub(r'(?<!^)(?=[A-Z])','_',cls).lower()+'_id'
-  common.append(f'CREATE CONSTRAINT {nm} IF NOT EXISTS FOR (n:{cls}) REQUIRE n.id IS UNIQUE;')
-  enterprise.append(f'CREATE CONSTRAINT {nm}_exists IF NOT EXISTS FOR (n:{cls}) REQUIRE n.id IS NOT NULL;')
+  enterprise.append(f'CREATE CONSTRAINT {constraint_name(cls)}_exists IF NOT EXISTS FOR (n:{cls}) REQUIRE n.id IS NOT NULL;')
  (ROOT/'neo4j/community-constraints.cypher').write_text('// Neo4j 5+ Community; uniqueness does not imply existence\n'+'\n'.join(common)+'\n')
  (ROOT/'neo4j/enterprise-constraints.cypher').write_text('// Neo4j Enterprise additional existence constraints\n'+'\n'.join(enterprise)+'\n')
  return {'classes':len(r['classes']),'json_schemas':len(r['classes']),'shacl_triples':len(shapes),'neo4j_uniques':len(common),'neo4j_exists':len(enterprise)}

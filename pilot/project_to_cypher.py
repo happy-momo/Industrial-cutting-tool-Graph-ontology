@@ -8,6 +8,8 @@ All output is sorted by (type, id) / relation key so regeneration is byte-stable
 """
 from __future__ import annotations
 
+from src.neo4j_constraints import community_constraints
+
 
 def _esc(value) -> str:
     if isinstance(value, bool):
@@ -24,10 +26,8 @@ def project_to_cypher(data: dict, reg: dict, mapping: dict) -> str:
 
     out: list[str] = []
     out.append("// constraint on entity id (Neo4j 5+ Community)")
-    for cls in sorted(reg["classes"]):
-        if cls == "RecommendationRecord":
-            continue
-        out.append(f"CREATE CONSTRAINT ct_{cls.lower()}_id IF NOT EXISTS FOR (n:{cls}) REQUIRE n.id IS UNIQUE;")
+    classes = sorted(c for c in reg["classes"] if c != "RecommendationRecord")
+    out.extend(community_constraints(classes))
 
     # --- nodes ---
     for ent in sorted(data["entities"], key=lambda e: (e["type"], e["id"])):

@@ -28,3 +28,20 @@ def test_generated_shapes_bind_same_ct():
     g.parse(str(ROOT / "shapes/generated-shapes.ttl"), format="turtle")
     bound = {str(v) for _, v in g.namespaces()}
     assert namespaces.ON_BASE in bound
+
+
+def test_field_registry_has_no_vocab_uri_literal():
+    text = (ROOT / "contract/field-registry.yaml").read_text("utf-8")
+    assert "example\\.org/cutting-tool/vocabulary" not in text
+    assert "example.org/cutting-tool/vocabulary/" not in text
+
+
+def test_generated_schema_pattern_is_vocab_derived():
+    import json as _json
+    schema = _json.loads((ROOT / "schemas/ToolType.schema.json").read_text("utf-8"))
+    pat = schema["properties"]["concept_ref"]["pattern"]
+    assert "{{VOCAB_BASE}}" not in pat
+    # derived prefix: dot-only escaping, byte-identical to the hand-written original
+    prefix = "^" + namespaces.VOCAB_BASE.rstrip("/").replace(".", "\\.") + "/"
+    assert pat.startswith(prefix)
+    assert "(tool|process|material)" in pat

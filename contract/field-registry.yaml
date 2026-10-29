@@ -94,7 +94,7 @@ classes:
         required: true
         minLength: 1
         maxLength: 240
-        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
+        pattern: "^{{VOCAB_BASE}}/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$"
   ProcessMethod:
     parent: Entity
     fields:
@@ -103,7 +103,7 @@ classes:
         required: true
         minLength: 1
         maxLength: 240
-        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
+        pattern: "^{{VOCAB_BASE}}/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$"
   MaterialClass:
     parent: Entity
     fields:
@@ -122,7 +122,7 @@ classes:
         required: true
         minLength: 1
         maxLength: 240
-        pattern: ^https://example\.org/cutting-tool/vocabulary/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$
+        pattern: "^{{VOCAB_BASE}}/(tool|process|material)#[A-Za-z][A-Za-z0-9_-]*$"
   SubstrateType:
     parent: Entity
     fields: {}
